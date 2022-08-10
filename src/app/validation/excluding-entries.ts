@@ -1,5 +1,5 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { convertSudokuFormToNumberArray } from '../sudoku-box/sudoku-box.component';
+import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 
 /**
  * Validator function to check whether there are Sudoku form entries exluding each other (e.g., the same number appears twice in a row).

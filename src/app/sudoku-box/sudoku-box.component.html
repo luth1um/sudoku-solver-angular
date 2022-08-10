@@ -18,7 +18,6 @@
 <div>
   <button (click)="solve()" [disabled]="!sudokuForm.valid || disableSolveButton">Solve!</button>
 </div>
-<div><button (click)="printSudokuFormToConsole()">print sudoku to console</button></div>
 <div *ngIf="sudokuForm.invalid" style="color: red">
   Some of the entries are not valid or exclude each other!<br />The Sudoku can only be solved when all entries are
   valid.

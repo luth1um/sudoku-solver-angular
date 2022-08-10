@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { solveSudoku } from '../solver/sudoku-solver';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
+import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 
 @Component({
   selector: 'solve-sudoku-box',
@@ -90,20 +91,6 @@ export class SudokuBoxComponent implements OnInit {
   }
 
   /**
-   * Prints the Sudoku puzzle of the form to the terminal. This is intended for debugging purposes.
-   */
-  printSudokuFormToConsole() {
-    // TODO: remove this method ASAP
-    for (const row of (this.sudokuForm.get('rows') as FormArray).controls) {
-      let rowString: string = row.get('column0')!.value;
-      for (let i = 1; i < 9; i++) {
-        rowString += ' ' + row.get('column' + i)!.value;
-      }
-      console.log(rowString);
-    }
-  }
-
-  /**
    * Triggers the process of solving the Sudoku puzzle and updating the form with the result.
    */
   solve(): void {
@@ -152,31 +139,4 @@ export class SudokuBoxComponent implements OnInit {
       i++;
     }
   }
-}
-
-/**
- * Converts the Sudoku form into a number array.
- * @returns Sudoku form as a number array
- */
-export function convertSudokuFormToNumberArray(sudokuForm: FormGroup): number[][] {
-  const sudokuArray: number[][] = [];
-
-  // outer loop: iterate over rows
-  for (const formRow of (sudokuForm.get('rows') as FormArray<FormGroup>).controls) {
-    const row: number[] = [];
-
-    // inner loop: iterate over columns
-    for (let i = 0; i < 9; i++) {
-      const valueString: string = formRow.get('column' + i)!.value;
-
-      // if no value: set -1 to indicate missing value
-      if (valueString === '') {
-        row[i] = -1;
-      } else {
-        row[i] = parseInt(valueString);
-      }
-    }
-    sudokuArray.push(row);
-  }
-  return sudokuArray;
 }
