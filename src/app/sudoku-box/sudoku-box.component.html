@@ -1,0 +1,26 @@
+<div [formGroup]="sudokuForm">
+  <table formGroupName="rows">
+    <tr *ngFor="let row of $any(sudokuForm.get('rows')).controls; let index = index" [formArrayName]="index">
+      <td><input type="text" size="1" formControlName="column0" /></td>
+      <td><input type="text" size="1" formControlName="column1" /></td>
+      <td><input type="text" size="1" formControlName="column2" /></td>
+      <td>&nbsp;</td>
+      <td><input type="text" size="1" formControlName="column3" /></td>
+      <td><input type="text" size="1" formControlName="column4" /></td>
+      <td><input type="text" size="1" formControlName="column5" /></td>
+      <td>&nbsp;</td>
+      <td><input type="text" size="1" formControlName="column6" /></td>
+      <td><input type="text" size="1" formControlName="column7" /></td>
+      <td><input type="text" size="1" formControlName="column8" /></td>
+    </tr>
+  </table>
+</div>
+<div>
+  <button (click)="solve()" [disabled]="!sudokuForm.valid || disableSolveButton">Solve!</button>
+</div>
+<div><button (click)="printSudokuFormToConsole()">print sudoku to console</button></div>
+<div *ngIf="sudokuForm.invalid" style="color: red">
+  Some of the entries are not valid or exclude each other!<br />The Sudoku can only be solved when all entries are
+  valid.
+</div>
+<div *ngIf="sudokuUnsolvable" style="color: red">There is no valid solution for this Sudoku puzzle!</div>
