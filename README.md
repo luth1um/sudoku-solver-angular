@@ -1,8 +1,8 @@
-# Sudoku Solver
+# 🤔 Sudoku Solver
 
 This project is a simple and fast Sudoku solver created with Angular and TypeScript. In case you want to try out the result, just visit [this website](https://luth1um.github.io/sudoku-solver-angular/).
 
-# Quick Start
+# 🚀 Quick Start
 
 The usual commands for Angular projects can be used in this project.
 
