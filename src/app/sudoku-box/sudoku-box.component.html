@@ -15,9 +15,13 @@
     </tr>
   </table>
 </div>
+<br />
 <div>
-  <button (click)="solve()" [disabled]="!sudokuForm.valid || disableSolveButton">Solve!</button>
+  <button (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">Solve!</button>
+  &nbsp;
+  <button (click)="reset()" [disabled]="disableButtonsForSolving">Reset</button>
 </div>
+<br />
 <div *ngIf="sudokuForm.invalid" style="color: red">
   Some of the entries are not valid or exclude each other!<br />The Sudoku can only be solved when all entries are
   valid.

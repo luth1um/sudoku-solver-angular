@@ -16,7 +16,7 @@ export class SudokuBoxComponent implements OnInit {
   });
   entryPattern: string = '[1-9]';
   formChangeSubscription?: Subscription;
-  disableSolveButton: boolean = false;
+  disableButtonsForSolving: boolean = false;
   sudokuUnsolvable: boolean = false;
 
   constructor(private fb: FormBuilder) {}
@@ -100,7 +100,7 @@ export class SudokuBoxComponent implements OnInit {
 
     this.sudokuUnsolvable = false; // reset "unsolvability" whenever solving (re-)starts
     this.sudokuForm.disable(); // disable form to prevent changes
-    this.disableSolveButton = true;
+    this.disableButtonsForSolving = true;
 
     console.log('Solving Sudoku puzzle...');
     const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
@@ -118,7 +118,7 @@ export class SudokuBoxComponent implements OnInit {
       this.sudokuUnsolvable = true;
     }
     this.sudokuForm.enable();
-    this.disableSolveButton = false;
+    this.disableButtonsForSolving = false;
   }
 
   /**
@@ -138,5 +138,12 @@ export class SudokuBoxComponent implements OnInit {
       }
       i++;
     }
+  }
+
+  /**
+   * Resets the complete Sudoku form (i.e., removes all entries).
+   */
+  reset(): void {
+    this.sudokuForm.reset();
   }
 }
