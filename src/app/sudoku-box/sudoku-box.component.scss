@@ -1,8 +1,31 @@
-.ng-invalid:not(div,table,tr) {
-    background-color: darkred;
-    color: white;
-  }
+@import '~@angular/material/theming'; // import theming functions from Angular Material
+$warn-palette: mat-palette($mat-red); // generate color palette
+$warn: mat-color($warn-palette); // generate warn color
 
-input {
-    text-align: center;
+.ng-invalid:not(table,tr,form) {
+  background-color: $warn;
+  color: white;
+  }
+.sudoku-input {
+  text-align: center;
+  border: 0;
+  padding: 1px !important;
+  background-color: lightgray;
+  width: 20px;
+  height: 20px;
+}
+.table-border {
+  border-collapse: collapse;
+}
+.bottom-border {
+  border-bottom: 1px solid black;
+}
+.top-border {
+  border-top: 1px solid black;
+}
+.left-border {
+  border-left: 1px solid black;
+}
+.right-border {
+  border-right: 1px solid black;
 }

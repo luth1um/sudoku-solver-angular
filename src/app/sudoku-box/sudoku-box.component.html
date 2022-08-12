@@ -1,25 +1,50 @@
-<div [formGroup]="sudokuForm">
-  <table formGroupName="rows">
-    <tr *ngFor="let row of $any(sudokuForm.get('rows')).controls; let index = index" [formArrayName]="index">
-      <td><input type="text" size="1" formControlName="column0" /></td>
-      <td><input type="text" size="1" formControlName="column1" /></td>
-      <td><input type="text" size="1" formControlName="column2" /></td>
-      <td>&nbsp;</td>
-      <td><input type="text" size="1" formControlName="column3" /></td>
-      <td><input type="text" size="1" formControlName="column4" /></td>
-      <td><input type="text" size="1" formControlName="column5" /></td>
-      <td>&nbsp;</td>
-      <td><input type="text" size="1" formControlName="column6" /></td>
-      <td><input type="text" size="1" formControlName="column7" /></td>
-      <td><input type="text" size="1" formControlName="column8" /></td>
+<form [formGroup]="sudokuForm">
+  <table formGroupName="rows" class="table-border">
+    <tr
+      *ngFor="let row of $any(sudokuForm.get('rows')).controls; let index = index"
+      [formArrayName]="index"
+      [class.top-border]="index === 0"
+      [class.bottom-border]="index % 3 === 2"
+    >
+      <td class="left-border">
+        <input class="sudoku-input" type="text" size="1" formControlName="column0" />
+      </td>
+      <td>
+        <input class="sudoku-input" type="text" size="1" formControlName="column1" />
+      </td>
+      <td class="right-border">
+        <input class="sudoku-input" type="text" size="1" formControlName="column2" />
+      </td>
+      <td>
+        <input class="sudoku-input" type="text" size="1" formControlName="column3" />
+      </td>
+      <td>
+        <input class="sudoku-input" type="text" size="1" formControlName="column4" />
+      </td>
+      <td class="right-border">
+        <input class="sudoku-input" type="text" size="1" formControlName="column5" />
+      </td>
+      <td>
+        <input class="sudoku-input" type="text" size="1" formControlName="column6" />
+      </td>
+      <td>
+        <input class="sudoku-input" type="text" size="1" formControlName="column7" />
+      </td>
+      <td class="right-border">
+        <input class="sudoku-input" type="text" size="1" formControlName="column8" />
+      </td>
     </tr>
   </table>
-</div>
+</form>
 <br />
 <div>
-  <button (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">Solve!</button>
+  <button mat-flat-button color="primary" (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">
+    <mat-icon>emoji_objects</mat-icon> Solve!
+  </button>
   &nbsp;
-  <button (click)="reset()" [disabled]="disableButtonsForSolving">Reset</button>
+  <button mat-flat-button color="warn" (click)="reset()" [disabled]="disableButtonsForSolving">
+    <mat-icon>cancel</mat-icon> Reset
+  </button>
 </div>
 <br />
 <div *ngIf="sudokuForm.invalid" style="color: red">
