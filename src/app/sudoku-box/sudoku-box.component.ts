@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { solveSudoku } from '../solver/sudoku-solver';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
@@ -18,8 +19,9 @@ export class SudokuBoxComponent implements OnInit {
   formChangeSubscription?: Subscription;
   disableButtonsForSolving: boolean = false;
   sudokuUnsolvable: boolean = false;
+  snackBarInvalidInputOpen: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     for (let i = 0; i < 9; i++) {
@@ -75,7 +77,17 @@ export class SudokuBoxComponent implements OnInit {
     this.formChangeSubscription = this.sudokuForm.statusChanges.subscribe((_) => {
       // only do something if there are invalid values
       if (!this.sudokuForm.invalid) {
+        this.snackBar.dismiss(); // dismiss error message if form is valid
         return;
+      }
+
+      // if form is invalid: trigger notification if not already open
+      if (!this.snackBarInvalidInputOpen) {
+        this.snackBarInvalidInputOpen = true;
+        this.openSnackBar(
+          'Some of the entries are not valid or exclude each other! The Sudoku can only be solved when all entries are valid.',
+          'OK'
+        );
       }
 
       // if form is invalid: revalidate ALL fields such that EVERY excluding field is marked as invalid (and not just the field that was changed last)
@@ -87,6 +99,11 @@ export class SudokuBoxComponent implements OnInit {
         }
       }
       this.onFormChange(); // resubscribe to changes
+
+      // dismiss error message if form is valid
+      if (!this.sudokuForm.invalid) {
+        this.snackBar.dismiss();
+      }
     });
   }
 
@@ -145,5 +162,20 @@ export class SudokuBoxComponent implements OnInit {
    */
   reset(): void {
     this.sudokuForm.reset();
+    this.sudokuUnsolvable = false;
+  }
+
+  /**
+   * Opens a snack bar with the given message and action (i.e., annotation for close button).
+   * @param message message to display
+   * @param action annotation for close button
+   */
+  openSnackBar(message: string, action: string) {
+    this.snackBar
+      .open(message, action)
+      .afterDismissed()
+      .subscribe(() => {
+        this.snackBarInvalidInputOpen = false;
+      });
   }
 }

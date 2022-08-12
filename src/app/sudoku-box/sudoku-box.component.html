@@ -46,9 +46,10 @@
     <mat-icon>cancel</mat-icon> Reset
   </button>
 </div>
-<br />
-<div *ngIf="sudokuForm.invalid" style="color: red">
-  Some of the entries are not valid or exclude each other!<br />The Sudoku can only be solved when all entries are
-  valid.
-</div>
-<div *ngIf="sudokuUnsolvable" style="color: red">There is no valid solution for this Sudoku puzzle!</div>
+<br *ngIf="sudokuUnsolvable" />
+<mat-card *ngIf="sudokuUnsolvable">
+  <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
+  <mat-card-content
+    >⚠️⚠️⚠️ There is no valid solution for the Sudoku puzzle that you just entered! ⚠️⚠️⚠️</mat-card-content
+  >
+</mat-card>

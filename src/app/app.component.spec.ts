@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, MatSnackBarModule],
       declarations: [AppComponent, SudokuBoxComponent],
     }).compileComponents();
   });

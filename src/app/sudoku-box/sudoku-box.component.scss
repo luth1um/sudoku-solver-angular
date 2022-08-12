@@ -29,3 +29,6 @@ $warn: mat-color($warn-palette); // generate warn color
 .right-border {
   border-right: 1px solid black;
 }
+.error-card-title{
+  color:$warn;
+}
