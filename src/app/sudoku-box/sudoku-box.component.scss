@@ -11,8 +11,9 @@ $warn: mat-color($warn-palette); // generate warn color
   border: 0;
   padding: 1px !important;
   background-color: lightgray;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
 }
 .table-border {
   border-collapse: collapse;
