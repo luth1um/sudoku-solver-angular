@@ -6,13 +6,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ResetDialogComponent } from './reset-dialog/reset-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, SudokuBoxComponent],
+  declarations: [AppComponent, SudokuBoxComponent, ResetDialogComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -22,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatCardModule,
     MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

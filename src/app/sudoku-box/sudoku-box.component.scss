@@ -15,14 +15,21 @@ $warn: mat-color($warn-palette); // generate warn color
   height: 30px;
   font-size: 20px;
 }
-.table-border {
+.sudoku-table {
   border-collapse: collapse;
+  background-color: lightgray;
 }
-.bottom-inner-border {
+.bottom-border-between-boxes {
   border-bottom: 5px solid black;
 }
-.right-inner-border {
+.right-border-between-boxes {
   border-right: 5px solid black;
+}
+.bottom-border-between-cells {
+  border-bottom: 1px solid black;
+}
+.right-border-between-cells {
+  border-right: 1px solid black;
 }
 .error-card-title{
   color:$warn;

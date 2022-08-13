@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
 import { solveSudoku } from '../solver/sudoku-solver';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
 import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
@@ -21,7 +23,7 @@ export class SudokuBoxComponent implements OnInit {
   sudokuUnsolvable: boolean = false;
   snackBarInvalidInputOpen: boolean = false;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {}
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     for (let i = 0; i < 9; i++) {
@@ -158,9 +160,21 @@ export class SudokuBoxComponent implements OnInit {
   }
 
   /**
+   * Opens the dialog for resetting the Sudoku puzzle.
+   */
+  openResetDialog(): void {
+    const dialogRef: MatDialogRef<ResetDialogComponent> = this.dialog.open(ResetDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.resetSudoku();
+      }
+    });
+  }
+
+  /**
    * Resets the complete Sudoku form (i.e., removes all entries).
    */
-  reset(): void {
+  private resetSudoku(): void {
     this.sudokuForm.reset();
     this.sudokuUnsolvable = false;
   }
