@@ -18,17 +18,11 @@ $warn: mat-color($warn-palette); // generate warn color
 .table-border {
   border-collapse: collapse;
 }
-.bottom-border {
-  border-bottom: 1px solid black;
+.bottom-inner-border {
+  border-bottom: 5px solid black;
 }
-.top-border {
-  border-top: 1px solid black;
-}
-.left-border {
-  border-left: 1px solid black;
-}
-.right-border {
-  border-right: 1px solid black;
+.right-inner-border {
+  border-right: 5px solid black;
 }
 .error-card-title{
   color:$warn;
