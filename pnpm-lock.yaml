@@ -22,6 +22,8 @@ specifiers:
   '@angular/platform-browser': ^14.1.2
   '@angular/platform-browser-dynamic': ^14.1.2
   '@angular/router': ^14.1.2
+  '@ngx-translate/core': ^14.0.0
+  '@ngx-translate/http-loader': ^7.0.0
   '@types/jasmine': ~4.0.3
   '@typescript-eslint/eslint-plugin': 5.31.0
   '@typescript-eslint/parser': 5.31.0
@@ -49,6 +51,8 @@ dependencies:
   '@angular/platform-browser': 14.1.2_3otf24jo3f4idajpgwhhqlt624
   '@angular/platform-browser-dynamic': 14.1.2_5i6d4327rbwp4cvkcywjmoq47q
   '@angular/router': 14.1.2_4wcrleoqytgp5zjvynaz56ywje
+  '@ngx-translate/core': 14.0.0_u5nixh7yjkeifypi65adzbr7xi
+  '@ngx-translate/http-loader': 7.0.0_oisnltg32whxeh4loxl7we4274
   rxjs: 7.5.6
   tslib: 2.4.0
   zone.js: 0.11.7
@@ -2020,6 +2024,30 @@ packages:
       typescript: 4.7.4
       webpack: 5.73.0_esbuild@0.14.49
     dev: true
+
+  /@ngx-translate/core/14.0.0_u5nixh7yjkeifypi65adzbr7xi:
+    resolution: {integrity: sha512-UevdwNCXMRCdJv//0kC8h2eSfmi02r29xeE8E9gJ1Al4D4jEJ7eiLPdjslTMc21oJNGguqqWeEVjf64SFtvw2w==}
+    peerDependencies:
+      '@angular/core': '>=13.0.0'
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/core': 14.1.2_rxjs@7.5.6+zone.js@0.11.7
+      rxjs: 7.5.6
+      tslib: 2.4.0
+    dev: false
+
+  /@ngx-translate/http-loader/7.0.0_oisnltg32whxeh4loxl7we4274:
+    resolution: {integrity: sha512-j+NpXXlcGVdyUNyY/qsJrqqeAdJdizCd+GKh3usXExSqy1aE9866jlAIL+xrfDU4w+LiMoma5pgE4emvFebZmA==}
+    peerDependencies:
+      '@angular/common': '>=13.0.0'
+      '@ngx-translate/core': '>=14.0.0'
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/common': 14.1.2_u5nixh7yjkeifypi65adzbr7xi
+      '@ngx-translate/core': 14.0.0_u5nixh7yjkeifypi65adzbr7xi
+      rxjs: 7.5.6
+      tslib: 2.4.0
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}

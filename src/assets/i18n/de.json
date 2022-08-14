@@ -1,0 +1,19 @@
+{
+  "APP": {
+    "TOOLBAR-EXPLANATION": "Sudoku erklärt",
+    "TOOLBAR-SOURCE-CODE": "Quellcode",
+    "HOW-TO-CONTENT": "Diese Website löst Sudokus schnell und einfach direkt auf deinem Gerät. Wenn du die Lösung für ein Sudoku erhalten möchtest, kannst du alle bekannten Ziffern in das folgende Feld eintragen und auf <i>Lösen!</i> drücken."
+  },
+  "SUDOKU-BOX": {
+    "BUTTON-SOLVE": "Lösen!",
+    "BUTTON-RESET": "Zurücksetzen",
+    "UNSOLVABLE-CONTENT": "Für das eingegebene Sudoku gibt es keine gültige Lösung!",
+    "FORM-INVALID-SNACK-BAR-MESSAGE": "Manche der Einträge sind ungültig oder schließen sich gegenseitig aus! Das Sudoku kann nur gelöst werden, wenn alle Einträge gültig sind."
+  },
+  "RESET-DIALOG": {
+    "TITLE": "Zurücksetzen",
+    "CONTENT": "Bist du sicher, dass du das Sudoku zurücksetzen möchtest?",
+    "BUTTON-NO": "Nein",
+    "BUTTON-RESET": "Zurücksetzen"
+  }
+}

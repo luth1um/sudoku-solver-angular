@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
 import { solveSudoku } from '../solver/sudoku-solver';
@@ -23,7 +24,12 @@ export class SudokuBoxComponent implements OnInit {
   sudokuUnsolvable: boolean = false;
   snackBarInvalidInputOpen: boolean = false;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private dialog: MatDialog) {}
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     for (let i = 0; i < 9; i++) {
@@ -86,10 +92,7 @@ export class SudokuBoxComponent implements OnInit {
       // if form is invalid: trigger notification if not already open
       if (!this.snackBarInvalidInputOpen) {
         this.snackBarInvalidInputOpen = true;
-        this.openSnackBar(
-          'Some of the entries are not valid or exclude each other! The Sudoku can only be solved when all entries are valid.',
-          'OK'
-        );
+        this.openSnackBarTemp('SUDOKU-BOX.FORM-INVALID-SNACK-BAR-MESSAGE', 'SUDOKU-BOX.FORM-INVALID-SNACK-BAR-ACTION');
       }
 
       // if form is invalid: revalidate ALL fields such that EVERY excluding field is marked as invalid (and not just the field that was changed last)
@@ -191,5 +194,25 @@ export class SudokuBoxComponent implements OnInit {
       .subscribe(() => {
         this.snackBarInvalidInputOpen = false;
       });
+  }
+
+  /**
+   * Opens a snack bar with the given message and action. Specifically, you need to provide the appropriate keys from the i18n files.
+   * @param translationKeyMessage i18n key for the message
+   * @param translationKeyAction i18n key for the action (i.e., the close button)
+   */
+  openSnackBarTemp(translationKeyMessage: string, translationKeyAction: string): void {
+    // first: get translated texts for message and action
+    this.translate.get(translationKeyMessage).subscribe((message: string) => {
+      this.translate.get(translationKeyAction).subscribe((action: string) => {
+        // then: open snack bar
+        this.snackBar
+          .open(message, action)
+          .afterDismissed()
+          .subscribe(() => {
+            this.snackBarInvalidInputOpen = false;
+          });
+      });
+    });
   }
 }

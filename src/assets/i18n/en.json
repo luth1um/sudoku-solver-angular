@@ -1,0 +1,22 @@
+{
+  "APP": {
+    "HEADING": "Sudoku Solver",
+    "TOOLBAR-EXPLANATION": "Sudoku Explanation",
+    "TOOLBAR-SOURCE-CODE": "Source Code",
+    "HOW-TO-TITLE": "How To",
+    "HOW-TO-CONTENT": "This website is a fast Sudoku solver where the result is calculated directly on your device. To get the solution for a Sudoku puzzle, simply enter all known numbers into the following form and press <i>Solve!</i>"
+  },
+  "SUDOKU-BOX": {
+    "BUTTON-SOLVE": "Solve!",
+    "BUTTON-RESET": "Reset",
+    "UNSOLVABLE-CONTENT": "There is no valid solution for the Sudoku puzzle that you just entered!",
+    "FORM-INVALID-SNACK-BAR-MESSAGE": "Some of the entries are not valid or exclude each other! The Sudoku puzzle can only be solved when all entries are valid.",
+    "FORM-INVALID-SNACK-BAR-ACTION": "OK"
+  },
+  "RESET-DIALOG": {
+    "TITLE": "Reset",
+    "CONTENT": "Are you sure that you want to reset the Sudoku puzzle?",
+    "BUTTON-NO": "No",
+    "BUTTON-RESET": "Reset!"
+  }
+}
