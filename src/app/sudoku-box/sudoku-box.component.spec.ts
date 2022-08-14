@@ -4,6 +4,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { SudokuBoxComponent } from './sudoku-box.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../app.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('SudokuBoxComponent', () => {
   let component: SudokuBoxComponent;
@@ -11,7 +14,20 @@ describe('SudokuBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatSnackBarModule, MatDialogModule],
+      imports: [
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient],
+          },
+          defaultLanguage: 'en',
+        }),
+      ],
       declarations: [SudokuBoxComponent],
     }).compileComponents();
 
