@@ -1,6 +1,7 @@
 {
   "APP": {
     "TOOLBAR-EXPLANATION": "Sudoku erklärt",
+    "TOOLBAR-EXPLANATION-WIKI-LINK": "https://de.wikipedia.org/wiki/Sudoku",
     "TOOLBAR-SOURCE-CODE": "Quellcode",
     "HOW-TO-CONTENT": "Diese Website löst Sudokus schnell und einfach direkt auf deinem Gerät. Wenn du die Lösung für ein Sudoku erhalten möchtest, kannst du alle bekannten Ziffern in das folgende Feld eintragen und auf <i>Lösen!</i> drücken."
   },

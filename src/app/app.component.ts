@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -6,8 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'sudoku-solver';
+  explanationLinkWiki?: string;
 
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'de']);
@@ -15,5 +16,11 @@ export class AppComponent {
 
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang && browserLang.match(/en|de/) ? browserLang : 'en');
+  }
+
+  ngOnInit(): void {
+    this.translate.get('APP.TOOLBAR-EXPLANATION-WIKI-LINK').subscribe((url: string) => {
+      this.explanationLinkWiki = url;
+    });
   }
 }
