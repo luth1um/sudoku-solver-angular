@@ -2,6 +2,7 @@
   "APP": {
     "HEADING": "Sudoku Solver",
     "TOOLBAR-EXPLANATION": "Sudoku Explanation",
+    "TOOLBAR-EXPLANATION-WIKI-LINK": "https://en.wikipedia.org/wiki/Sudoku",
     "TOOLBAR-SOURCE-CODE": "Source Code",
     "HOW-TO-TITLE": "How To",
     "HOW-TO-CONTENT": "This website is a fast Sudoku solver where the result is calculated directly on your device. To get the solution for a Sudoku puzzle, simply enter all known numbers into the following form and press <i>Solve!</i>"
