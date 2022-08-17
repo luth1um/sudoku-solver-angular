@@ -1,41 +1,23 @@
+<!-- Sudoku puzzle -->
 <form [formGroup]="sudokuForm">
   <table formGroupName="rows" class="sudoku-table">
     <tr
-      *ngFor="let row of $any(sudokuForm.get('rows')).controls; let index = index"
-      [formArrayName]="index"
-      [class.bottom-border-between-boxes]="index === 2 || index === 5"
-      [class.bottom-border-between-cells]="!(index === 2 || index === 5 || index === 8)"
+      *ngFor="let row of $any(sudokuForm.get('rows')).controls; let rowNum = index"
+      [formArrayName]="rowNum"
+      [class.bottom-border-between-boxes]="rowNum === 2 || rowNum === 5"
+      [class.bottom-border-between-cells]="!(rowNum === 2 || rowNum === 5 || rowNum === 8)"
     >
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column0" />
-      </td>
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column1" />
-      </td>
-      <td class="right-border-between-boxes">
-        <input class="sudoku-input" type="text" size="1" formControlName="column2" />
-      </td>
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column3" />
-      </td>
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column4" />
-      </td>
-      <td class="right-border-between-boxes">
-        <input class="sudoku-input" type="text" size="1" formControlName="column5" />
-      </td>
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column6" />
-      </td>
-      <td class="right-border-between-cells">
-        <input class="sudoku-input" type="text" size="1" formControlName="column7" />
-      </td>
-      <td>
-        <input class="sudoku-input" type="text" size="1" formControlName="column8" />
+      <td
+        *ngFor="let entry of getZeroedArrayOfLength(9); let columnNum = index"
+        [class.right-border-between-cells]="!(columnNum === 2 || columnNum === 5 || columnNum === 8)"
+        [class.right-border-between-boxes]="columnNum === 2 || columnNum === 5"
+      >
+        <input class="sudoku-input" type="text" size="1" formControlName="column{{ columnNum }}" />
       </td>
     </tr>
   </table>
 </form>
+<!-- buttons and messages -->
 <br />
 <div>
   <button mat-flat-button color="primary" (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">

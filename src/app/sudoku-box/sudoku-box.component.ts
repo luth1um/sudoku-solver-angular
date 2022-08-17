@@ -215,4 +215,18 @@ export class SudokuBoxComponent implements OnInit {
       });
     });
   }
+
+  /**
+   * Returns an array with the given length having all entries set to 0. The sole purpose of this function is to
+   * circumvent the fact that Angular templates do not provide a direct way to use ngFor loops with an index.
+   * @param length length of the array
+   * @returns an array with the given length having all entries set to 0.
+   */
+  getZeroedArrayOfLength(length: number): number[] {
+    let array: number[] = [];
+    for (let i = 0; i < length; i++) {
+      array.push(0);
+    }
+    return array;
+  }
 }
