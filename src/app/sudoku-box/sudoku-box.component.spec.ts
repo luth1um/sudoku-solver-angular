@@ -7,6 +7,8 @@ import { SudokuBoxComponent } from './sudoku-box.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('SudokuBoxComponent', () => {
   let component: SudokuBoxComponent;
@@ -17,6 +19,7 @@ describe('SudokuBoxComponent', () => {
       imports: [
         ReactiveFormsModule,
         MatSnackBarModule,
+        MatIconModule,
         MatDialogModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -29,6 +32,7 @@ describe('SudokuBoxComponent', () => {
         }),
       ],
       declarations: [SudokuBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SudokuBoxComponent);
