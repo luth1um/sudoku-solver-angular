@@ -1,6 +1,6 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, lint and build the source code and run tests across different versions of node.
 
-name: Build
+name: Build and Test
 
 on:
   push:
@@ -9,48 +9,28 @@ on:
     branches: ["main"]
 
 jobs:
-  lint:
+  build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setups
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-      - uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-
-  build:
-    needs: lint
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-
-  test:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test-once
+      
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      
+      - name: Lint
+        run: pnpm lint
+      
+      - name: Build
+        run: pnpm build
+      
+      - name: Test
+        run: pnpm test-once
