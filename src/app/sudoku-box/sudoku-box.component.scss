@@ -1,4 +1,4 @@
-@import '~@angular/material/theming'; // import theming functions from Angular Material
+@import '@angular/material/theming'; // import theming functions from Angular Material
 $warn-palette: mat-palette($mat-red); // generate color palette
 $warn: mat-color($warn-palette); // generate warn color
 
