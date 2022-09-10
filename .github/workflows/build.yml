@@ -4,8 +4,7 @@ name: Build
 
 on:
   push:
-    - "*"
-    - "!gh-pages"
+    branches-ignore: ["gh-pages"]
   pull_request:
     branches: ["main"]
 
