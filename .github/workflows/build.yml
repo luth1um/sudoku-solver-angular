@@ -10,29 +10,30 @@ on:
 
 jobs:
   build-and-test:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout 🛎
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js ⚙️
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Setup pnpm
+      - name: Setup pnpm ⚙️
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
 
-      - name: Install
+      - name: Install 🕝
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
+      - name: Lint 🧐
         run: pnpm lint
 
-      - name: Build
+      - name: Build 🔧
         run: pnpm build
 
-      - name: Test
+      - name: Test 🥼
         run: pnpm test-once
