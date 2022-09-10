@@ -1,6 +1,6 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, lint and build the source code and run tests across different versions of node.
 
-name: Sudoku Solver CI
+name: Sudoku Solver Build
 
 on:
   push:
@@ -9,7 +9,19 @@ on:
     branches: ["main"]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+      - run: pnpm lint
+
   build:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +32,5 @@ jobs:
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
-      - uses: browser-actions/setup-chrome@latest
       - run: pnpm install
-      - run: pnpm lint
       - run: pnpm build
-      - run: pnpm test
