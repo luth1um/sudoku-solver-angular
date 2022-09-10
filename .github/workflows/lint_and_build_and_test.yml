@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: 18
       - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
       - run: pnpm install
       - run: pnpm lint
       - run: pnpm build
