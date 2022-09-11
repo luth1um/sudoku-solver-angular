@@ -10,13 +10,12 @@ permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
-  name: Build and Deploy
+  on-success:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - run: echo 'The triggering workflow passed'
   
   triggering-workflow-failed:
   name: Build and Test workflow failed
