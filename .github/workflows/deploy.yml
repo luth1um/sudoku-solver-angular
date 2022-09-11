@@ -33,6 +33,11 @@ jobs:
       - name: Build 🔧
         run: pnpm build
 
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/sudoku-solver
+
   on-failure:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
