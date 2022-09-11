@@ -1,4 +1,4 @@
-![Build](https://github.com/luth1um/sudoku-solver-angular/actions/workflows/build.yml/badge.svg?branch=main)
+![Build](https://github.com/luth1um/sudoku-solver-angular/actions/workflows/build_and_test.yml/badge.svg?branch=main)
 
 # 🤔 Sudoku Solver
 

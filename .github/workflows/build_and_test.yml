@@ -1,5 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, lint and build the source code and run tests across different versions of node.
-
 name: Build and Test
 
 on:
@@ -35,5 +33,5 @@ jobs:
       - name: Build 🔧
         run: pnpm build
 
-      - name: Test 🥼
+      - name: Test 🧪
         run: pnpm test-once
