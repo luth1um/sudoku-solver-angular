@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   on-success:
+  name: Build and Deploy
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
@@ -39,36 +40,8 @@ jobs:
           folder: dist/sudoku-solver-angular
 
   on-failure:
+    name: Workflow Build and Test failed
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - run: echo 'The triggering workflow failed'
-#jobs:
-#  build-and-deploy:
-#  name: Build and Deploy
-#    runs-on: ubuntu-latest
-#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-#    steps:
-#      - name: Checkout 🛎️
-#        uses: actions/checkout@v3
-#
-#      - name: Setup Node.js ⚙️
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 18
-#
-#      - name: Setup pnpm ⚙️
-#        uses: pnpm/action-setup@v2.2.2
-#        with:
-#          version: 7
-#
-#      - name: Install 🕝
-#        run: pnpm install --frozen-lockfile
-#
-#      - name: Build 🔧
-#        run: pnpm build
-#
-#      - name: Deploy 🚀
-#        uses: JamesIves/github-pages-deploy-action@v4
-#        with:
-#          folder: dist/sudoku-solver
