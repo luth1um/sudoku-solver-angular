@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   workflow_run:
-    workflows: [build]
+    workflows: [Build and Test]
     types: [completed]
     branches: [main]
 
