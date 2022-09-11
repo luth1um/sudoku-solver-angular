@@ -36,7 +36,7 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/sudoku-solver
+          folder: dist/sudoku-solver-angular
 
   on-failure:
     runs-on: ubuntu-latest
