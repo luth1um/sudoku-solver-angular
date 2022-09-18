@@ -22,10 +22,10 @@ jobs:
         with:
           node-version: 18
 
-       - name: Setup pnpm ⚙️
-         uses: pnpm/action-setup@v2.2.2
-         with:
-           version: 7
+      - name: Setup pnpm ⚙️
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
 
       - name: Install 🕝
         run: pnpm install --frozen-lockfile
