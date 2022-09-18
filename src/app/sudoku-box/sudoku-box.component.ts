@@ -3,9 +3,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { solveSudoku } from 'fast-sudoku-solver';
 import { Subscription } from 'rxjs';
 import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
-import { solveSudoku } from '../solver/sudoku-solver';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
 import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 

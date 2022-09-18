@@ -29,6 +29,7 @@ specifiers:
   '@typescript-eslint/parser': 5.36.2
   angular-cli-ghpages: ^1.0.3
   eslint: ^8.23.0
+  fast-sudoku-solver: ^1.0.1
   jasmine-core: ~4.4.0
   karma: ~6.4.0
   karma-chrome-launcher: ~3.1.1
@@ -53,6 +54,7 @@ dependencies:
   '@angular/router': 14.2.1_nkboozztpybu6c6qwc6xmeddj4
   '@ngx-translate/core': 14.0.0_xx5kjva5ggfx6cmsqrkxlt3jke
   '@ngx-translate/http-loader': 7.0.0_fonfhdiw7zjchcaaeu75obizia
+  fast-sudoku-solver: 1.0.1
   rxjs: 7.5.6
   tslib: 2.4.0
   zone.js: 0.11.8
@@ -4301,6 +4303,10 @@ packages:
   /fast-levenshtein/2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
+
+  /fast-sudoku-solver/1.0.1:
+    resolution: {integrity: sha512-oTIxQp6B43x+5WBMgxizeL00lxUPwYEuEqElqnAlgddreoqx0SlzaKL8CKywOsbf40cWUSNf7GYDcig57q0pNg==}
+    dev: false
 
   /fastq/1.13.0:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
