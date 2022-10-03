@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { solveSudoku } from 'fast-sudoku-solver';
+import { nextNumber, NextNumberResult, solveSudoku } from 'fast-sudoku-solver';
 import { Subscription } from 'rxjs';
 import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
@@ -133,8 +133,45 @@ export class SudokuBoxComponent implements OnInit {
     if (isSolved) {
       console.log('Sudoku puzzle solved!');
       this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
-      this.updateSudokuFormWithSolvedPuzzle(solvedSudoku);
+      this.updateSudokuFormEntries(solvedSudoku);
       this.onFormChange(); // listen again to changes when update of form complete
+    } else {
+      console.log('Sudoku not solvable');
+      this.sudokuUnsolvable = true;
+    }
+    this.sudokuForm.enable();
+    this.disableButtonsForSolving = false;
+  }
+
+  /**
+   * Triggers the process of calculating the next number for the Sudoku puzzle.
+   */
+  nextNumber(): void {
+    if (this.sudokuForm.invalid) {
+      return;
+    }
+
+    this.sudokuUnsolvable = false; // reset "unsolvability" whenever solving (re-)starts
+    this.sudokuForm.disable(); // disable form to prevent changes
+    this.disableButtonsForSolving = true;
+
+    console.log('Calculating next number...');
+    const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
+    const result: NextNumberResult = nextNumber(sudoku);
+    const isSolvable: boolean = result.isSolvable;
+    const row: number = result.row;
+    const column: number = result.column;
+    const entry: number = result.entry;
+
+    if (isSolvable) {
+      console.log('Next number calculated!');
+      if (entry !== -1) {
+        // -1 means that puzzle is already completely solved (hence, nothing to do)
+        this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
+        sudoku[row][column] = entry;
+        this.updateSudokuFormEntries(sudoku);
+        this.onFormChange(); // listen again to changes when update of form complete
+      }
     } else {
       console.log('Sudoku not solvable');
       this.sudokuUnsolvable = true;
@@ -147,7 +184,7 @@ export class SudokuBoxComponent implements OnInit {
    * Updates the Sudoku form with the result of the Sudoku solver.
    * @param solvedSudoku solved Sudoku puzzle
    */
-  private updateSudokuFormWithSolvedPuzzle(solvedSudoku: number[][]): void {
+  private updateSudokuFormEntries(solvedSudoku: number[][]): void {
     let i = 0;
     // outer loop: iterate over rows
     for (const formRow of (this.sudokuForm.get('rows') as FormArray<FormGroup>).controls) {

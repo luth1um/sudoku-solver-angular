@@ -28,6 +28,17 @@
     <mat-icon>cancel</mat-icon> {{ "sudoku-box.button-reset" | translate }}
   </button>
 </div>
+<br />
+<div>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="nextNumber()"
+    [disabled]="!sudokuForm.valid || disableButtonsForSolving"
+  >
+    <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-next-number" | translate }}
+  </button>
+</div>
 <br *ngIf="sudokuUnsolvable" />
 <mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px">
   <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
