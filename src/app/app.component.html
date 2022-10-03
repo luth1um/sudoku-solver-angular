@@ -1,16 +1,16 @@
 <mat-toolbar class="toolbar mat-elevation-z4" color="primary">
   <a mat-button href="{{ explanationLinkWiki }}" target="_blank">
-    <span class="material-icons">school</span> {{ "APP.TOOLBAR-EXPLANATION" | translate }}</a
+    <span class="material-icons">school</span> {{ "app.toolbar-explanation" | translate }}</a
   >
   <a mat-button href="https://github.com/luth1um/sudoku-solver-angular" target="_blank">
-    <span class="material-icons">data_object</span> {{ "APP.TOOLBAR-SOURCE-CODE" | translate }}</a
+    <span class="material-icons">data_object</span> {{ "app.toolbar-source-code" | translate }}</a
   >
 </mat-toolbar>
 <main class="content">
-  <h1 class="mat-h1">{{ "APP.HEADING" | translate }}</h1>
+  <h1 class="mat-h1">{{ "app.heading" | translate }}</h1>
   <mat-card style="max-width: 400px">
-    <mat-card-subtitle>🔎 {{ "APP.HOW-TO-TITLE" | translate }}</mat-card-subtitle>
-    <mat-card-content [innerHTML]="'APP.HOW-TO-CONTENT' | translate"> </mat-card-content>
+    <mat-card-subtitle>🔎 {{ "app.how-to-title" | translate }}</mat-card-subtitle>
+    <mat-card-content [innerHTML]="'app.how-to-content' | translate"> </mat-card-content>
   </mat-card>
   <br />
   <solve-sudoku-box></solve-sudoku-box>

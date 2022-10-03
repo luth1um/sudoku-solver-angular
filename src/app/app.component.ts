@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.translate.get('APP.TOOLBAR-EXPLANATION-WIKI-LINK').subscribe((url: string) => {
+    this.translate.get('app.toolbar-explanation-wiki-link').subscribe((url: string) => {
       this.explanationLinkWiki = url;
     });
   }

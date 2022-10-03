@@ -92,7 +92,7 @@ export class SudokuBoxComponent implements OnInit {
       // if form is invalid: trigger notification if not already open
       if (!this.snackBarInvalidInputOpen) {
         this.snackBarInvalidInputOpen = true;
-        this.openSnackBarTemp('SUDOKU-BOX.FORM-INVALID-SNACK-BAR-MESSAGE', 'SUDOKU-BOX.FORM-INVALID-SNACK-BAR-ACTION');
+        this.openSnackBarTemp('sudoku-box.form-invalid-snack-bar-message', 'sudoku-box.form-invalid-snack-bar-action');
       }
 
       // if form is invalid: revalidate ALL fields such that EVERY excluding field is marked as invalid (and not just the field that was changed last)

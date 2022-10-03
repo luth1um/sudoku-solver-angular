@@ -1,23 +1,17 @@
 {
-  "APP": {
-    "HEADING": "Sudoku Solver",
-    "TOOLBAR-EXPLANATION": "Sudoku Explanation",
-    "TOOLBAR-EXPLANATION-WIKI-LINK": "https://en.wikipedia.org/wiki/Sudoku",
-    "TOOLBAR-SOURCE-CODE": "Source Code",
-    "HOW-TO-TITLE": "How To",
-    "HOW-TO-CONTENT": "This website is a fast Sudoku solver where the result is calculated directly on your device. To get the solution for a Sudoku puzzle, simply enter all known numbers into the following form and press <i>Solve!</i>"
-  },
-  "SUDOKU-BOX": {
-    "BUTTON-SOLVE": "Solve!",
-    "BUTTON-RESET": "Reset",
-    "UNSOLVABLE-CONTENT": "There is no valid solution for the Sudoku puzzle that you just entered!",
-    "FORM-INVALID-SNACK-BAR-MESSAGE": "Some of the entries are not valid or exclude each other! The Sudoku puzzle can only be solved when all entries are valid.",
-    "FORM-INVALID-SNACK-BAR-ACTION": "OK"
-  },
-  "RESET-DIALOG": {
-    "TITLE": "Reset",
-    "CONTENT": "Are you sure that you want to reset the Sudoku puzzle?",
-    "BUTTON-NO": "No",
-    "BUTTON-RESET": "Reset!"
-  }
+  "app.heading": "Sudoku Solver",
+  "app.toolbar-explanation": "Sudoku Explanation",
+  "app.toolbar-explanation-wiki-link": "https://en.wikipedia.org/wiki/Sudoku",
+  "app.toolbar-source-code": "Source Code",
+  "app.how-to-title": "How To",
+  "app.how-to-content": "This website is a fast Sudoku solver where the result is calculated directly on your device. To get the solution for a Sudoku puzzle, simply enter all known numbers into the following form and press <i>Solve!</i>",
+  "reset-dialog.title": "Reset",
+  "reset-dialog.content": "Are you sure that you want to reset the Sudoku puzzle?",
+  "reset-dialog.button-no": "No",
+  "reset-dialog.button-reset": "Reset!",
+  "sudoku-box.button-solve": "Solve!",
+  "sudoku-box.button-reset": "Reset",
+  "sudoku-box.unsolvable-content": "There is no valid solution for the Sudoku puzzle that you just entered!",
+  "sudoku-box.form-invalid-snack-bar-message": "Some of the entries are not valid or exclude each other! The Sudoku puzzle can only be solved when all entries are valid.",
+  "sudoku-box.form-invalid-snack-bar-action": "OK"
 }

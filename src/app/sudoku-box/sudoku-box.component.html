@@ -21,15 +21,15 @@
 <br />
 <div>
   <button mat-flat-button color="primary" (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">
-    <mat-icon>emoji_objects</mat-icon> {{ "SUDOKU-BOX.BUTTON-SOLVE" | translate }}
+    <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-solve" | translate }}
   </button>
   &nbsp;
   <button mat-flat-button color="accent" (click)="openResetDialog()" [disabled]="disableButtonsForSolving">
-    <mat-icon>cancel</mat-icon> {{ "SUDOKU-BOX.BUTTON-RESET" | translate }}
+    <mat-icon>cancel</mat-icon> {{ "sudoku-box.button-reset" | translate }}
   </button>
 </div>
 <br *ngIf="sudokuUnsolvable" />
 <mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px">
   <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
-  <mat-card-content>⚠️⚠️⚠️ {{ "SUDOKU-BOX.UNSOLVABLE-CONTENT" | translate }} ⚠️⚠️⚠️</mat-card-content>
+  <mat-card-content>⚠️⚠️⚠️ {{ "sudoku-box.unsolvable-content" | translate }} ⚠️⚠️⚠️</mat-card-content>
 </mat-card>
