@@ -1,5 +1,5 @@
 <!-- Sudoku puzzle -->
-<form [formGroup]="sudokuForm">
+<form [formGroup]="sudokuForm" id="sudoku-form">
   <table formGroupName="rows" class="sudoku-table">
     <tr
       *ngFor="let row of $any(sudokuForm.get('rows')).controls; let rowNum = index"
@@ -12,7 +12,13 @@
         [class.right-border-between-cells]="!(columnNum === 2 || columnNum === 5 || columnNum === 8)"
         [class.right-border-between-boxes]="columnNum === 2 || columnNum === 5"
       >
-        <input class="sudoku-input" type="text" size="1" formControlName="column{{ columnNum }}" />
+        <input
+          class="sudoku-input"
+          type="text"
+          size="1"
+          formControlName="column{{ columnNum }}"
+          id="sudoku-input-{{ rowNum }}{{ columnNum }}"
+        />
       </td>
     </tr>
   </table>
@@ -20,11 +26,23 @@
 <!-- buttons and messages -->
 <br />
 <div>
-  <button mat-flat-button color="primary" (click)="solve()" [disabled]="!sudokuForm.valid || disableButtonsForSolving">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="solve()"
+    [disabled]="!sudokuForm.valid || disableButtonsForSolving"
+    id="button-solve"
+  >
     <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-solve" | translate }}
   </button>
   &nbsp;
-  <button mat-flat-button color="accent" (click)="openResetDialog()" [disabled]="disableButtonsForSolving">
+  <button
+    mat-flat-button
+    color="accent"
+    (click)="openResetDialog()"
+    [disabled]="disableButtonsForSolving"
+    id="button-reset"
+  >
     <mat-icon>cancel</mat-icon> {{ "sudoku-box.button-reset" | translate }}
   </button>
 </div>
@@ -35,12 +53,13 @@
     color="primary"
     (click)="nextNumber()"
     [disabled]="!sudokuForm.valid || disableButtonsForSolving"
+    id="button-next-number"
   >
     <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-next-number" | translate }}
   </button>
 </div>
 <br *ngIf="sudokuUnsolvable" />
-<mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px">
+<mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px" id="card-sudoku-unsolvable">
   <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
   <mat-card-content>⚠️⚠️⚠️ {{ "sudoku-box.unsolvable-content" | translate }} ⚠️⚠️⚠️</mat-card-content>
 </mat-card>
