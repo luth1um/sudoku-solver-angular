@@ -42,4 +42,4 @@ jobs:
           install: false
           build: pnpm build
           start: pnpm start
-          wait-on: "http://localhost:4200"
+          wait-on: "http://localhost:8080"
