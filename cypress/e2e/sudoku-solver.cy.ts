@@ -95,8 +95,4 @@ describe('The Sudoku solver', () => {
     cy.get(id0).should('contain.text', '');
     cy.get(id1).should('contain.text', '');
   });
-
-  // TODO: test for next number (different file)
-
-  // TODO: test next number and solve complete puzzle (different file)
 });
