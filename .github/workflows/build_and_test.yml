@@ -33,5 +33,13 @@ jobs:
       - name: Build 🔧
         run: pnpm build
 
-      - name: Test 🧪
+      - name: Unit Tests 🧪
         run: pnpm test-once
+
+      - name: E2E Tests 🔬
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          build: false
+          start: pnpm start
+          wait-on: "http://localhost:4200"
