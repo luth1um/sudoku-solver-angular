@@ -1,6 +1,6 @@
 describe('The Sudoku solver', () => {
   it('should initially only have empty fields', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     for (let row = 0; row < 9; row++) {
       for (let column = 0; column < 9; column++) {
         cy.get('#sudoku-input-' + row + column)
@@ -23,7 +23,7 @@ describe('The Sudoku solver', () => {
       [9, 6, 8, 3, 4, 1, 5, 7, 2],
     ];
 
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#button-solve').click();
 
     for (let row = 0; row < 9; row++) {
@@ -58,7 +58,7 @@ describe('The Sudoku solver', () => {
       [3, 2, 8, 5, 6, 1, 7, 4, 9],
     ];
 
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     for (let row = 0; row < 9; row++) {
       for (let column = 0; column < 9; column++) {
         if (sudoku[row][column] !== -1) {
@@ -80,7 +80,7 @@ describe('The Sudoku solver', () => {
     const id0: string = '#sudoku-input-35';
     const id1: string = '#sudoku-input-76';
 
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
 
     cy.get(id0).should('contain.text', ''); // assumption
     cy.get(id1).should('contain.text', ''); // assumption

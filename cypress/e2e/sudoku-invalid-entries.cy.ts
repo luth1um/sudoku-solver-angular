@@ -1,6 +1,6 @@
 describe('The Sudoku solver', () => {
   it('should mark fields with numbers being less than 1 as invalid until the entry is removed', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#sudoku-input-37.sudoku-input.ng-valid').should('have.length', 1); // assumption
     cy.get('#sudoku-input-37').type('0');
     cy.get('#sudoku-input-37.sudoku-input.ng-valid').should('have.length', 0);
@@ -15,7 +15,7 @@ describe('The Sudoku solver', () => {
   });
 
   it('should mark fields with numbers being greater than 9 as invalid until the entry is removed', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#sudoku-input-64.sudoku-input.ng-valid').should('have.length', 1); // assumption
     cy.get('#sudoku-input-64').type('10');
     cy.get('#sudoku-input-64.sudoku-input.ng-valid').should('have.length', 0);
@@ -30,7 +30,7 @@ describe('The Sudoku solver', () => {
   });
 
   it('should mark fields with symbols not being nubmers as invalid until the entry is removed', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#sudoku-input-13.sudoku-input.ng-valid').should('have.length', 1); // assumption
     cy.get('#sudoku-input-13').type('a');
     cy.get('#sudoku-input-13.sudoku-input.ng-valid').should('have.length', 0);
@@ -39,7 +39,7 @@ describe('The Sudoku solver', () => {
   });
 
   it('should disable the buttons for solving and next number if there is an invalid entry', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#sudoku-input-27').type('a');
     cy.get('#sudoku-input-27.sudoku-input.ng-valid').should('have.length', 0); // assumption
 
@@ -48,7 +48,7 @@ describe('The Sudoku solver', () => {
   });
 
   it('should show an error message in case of an invalid input', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('.mat-snack-bar-container').should('not.exist'); // assumption
     cy.get('#sudoku-input-27').type('a');
     cy.get('#sudoku-input-27.sudoku-input.ng-valid').should('have.length', 0); // assumption
@@ -57,7 +57,7 @@ describe('The Sudoku solver', () => {
   });
 
   it('should mark inputs as invalid if the same number appears twice in a row, column, or box', () => {
-    cy.visit('/');
+    cy.visit('/sudoku-solver-angular');
     cy.get('#sudoku-input-21.sudoku-input.ng-valid').should('have.length', 1); // assumption
     cy.get('#sudoku-input-65.sudoku-input.ng-valid').should('have.length', 1); // assumption
     cy.get('#sudoku-input-61.sudoku-input.ng-valid').should('have.length', 1); // assumption
