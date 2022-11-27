@@ -49,11 +49,11 @@ describe('The Sudoku solver', () => {
 
   it('should show an error message in case of an invalid input', () => {
     cy.visit('/sudoku-solver-angular');
-    cy.get('.mat-snack-bar-container').should('not.exist'); // assumption
+    cy.get('mat-snack-bar-container').should('not.exist'); // assumption
     cy.get('#sudoku-input-27').type('a');
     cy.get('#sudoku-input-27.sudoku-input.ng-valid').should('have.length', 0); // assumption
 
-    cy.get('.mat-snack-bar-container').should('be.visible');
+    cy.get('mat-snack-bar-container').should('be.visible');
   });
 
   it('should mark inputs as invalid if the same number appears twice in a row, column, or box', () => {
