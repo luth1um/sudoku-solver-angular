@@ -9,7 +9,9 @@
 <main class="content">
   <h1 class="mat-h1" id="heading">{{ "app.heading" | translate }}</h1>
   <mat-card style="max-width: 400px" id="how-to-box">
-    <mat-card-subtitle>🔎 {{ "app.how-to-title" | translate }}</mat-card-subtitle>
+    <mat-card-header>
+      <mat-card-title>🔎 {{ "app.how-to-title" | translate }}</mat-card-title>
+    </mat-card-header>
     <mat-card-content [innerHTML]="'app.how-to-content' | translate"> </mat-card-content>
   </mat-card>
   <br />
