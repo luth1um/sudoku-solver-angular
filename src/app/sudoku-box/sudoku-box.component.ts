@@ -120,6 +120,15 @@ export class SudokuBoxComponent implements OnInit {
       return;
     }
 
+    WebAssembly.instantiateStreaming(fetch('assets/wasm/release.wasm'))
+      .then((wasmObj) => {
+        const add = wasmObj.instance.exports['add'] as (a: number, b: number) => number;
+        console.log('Result: ', add(1, 2));
+      })
+      .catch((reason) => {
+        console.warn('wasm instantiation failed', reason);
+      });
+
     this.sudokuUnsolvable = false; // reset "unsolvability" whenever solving (re-)starts
     this.sudokuForm.disable(); // disable form to prevent changes
     this.disableButtonsForSolving = true;
