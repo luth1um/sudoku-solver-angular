@@ -1,6 +1,4 @@
-@import '@angular/material/theming'; // import theming functions from Angular Material
-$warn-palette: mat-palette($mat-red); // generate color palette
-$warn: mat-color($warn-palette); // generate warn color
+$warn: rgb(238,43,42);
 
 .ng-invalid:not(table,tr,form) {
   background-color: $warn;
