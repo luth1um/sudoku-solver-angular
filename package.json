@@ -62,8 +62,9 @@
   },
   "resolutions": {
     "axios": "1.6.5",
-    "follow-redirects": "1.15.5",
+    "follow-redirects": "1.15.6",
     "vite": "5.0.12",
-    "ip": "2.0.1"
+    "ip": "2.0.1",
+    "webpack-dev-middleware": "6.1.2"
   }
 }
