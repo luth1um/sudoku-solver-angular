@@ -104,8 +104,8 @@ devDependencies:
     specifier: 7.11.0
     version: 7.11.0(eslint@8.57.0)(typescript@5.4.5)
   angular-cli-ghpages:
-    specifier: 2.0.0
-    version: 2.0.0
+    specifier: 1.0.7
+    version: 1.0.7(@angular-devkit/architect@0.1800.2)(@angular-devkit/core@18.0.2)(@angular-devkit/schematics@18.0.2)
   cypress:
     specifier: 13.10.0
     version: 13.10.0
@@ -4451,18 +4451,20 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /angular-cli-ghpages@2.0.0:
-    resolution: {integrity: sha512-/nSj5GTdY9kZc9/YQ8C9L5GUJyIdaPejYWe7XXutxUSdcZzONJTZD0VOqx2a3AwLx0oOYtF4/i1PWjvOZulcug==}
+  /angular-cli-ghpages@1.0.7(@angular-devkit/architect@0.1800.2)(@angular-devkit/core@18.0.2)(@angular-devkit/schematics@18.0.2):
+    resolution: {integrity: sha512-7uq+NSqmhVBnA1uimVQVoQfXP80aSJc/nZGdRUiADcTeRQFPamaQUbh4bn2EHiC9TJn44lDOEGnzdhAej0wz6w==}
     hasBin: true
+    peerDependencies:
+      '@angular-devkit/architect': '>= 0.900 < 0.1602.0'
+      '@angular-devkit/core': ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      '@angular-devkit/schematics': ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@angular-devkit/architect': 0.1800.2
       '@angular-devkit/core': 18.0.2
       '@angular-devkit/schematics': 18.0.2
       commander: 3.0.2
-      fs-extra: 11.2.0
+      fs-extra: 9.1.0
       gh-pages: 3.2.3
-    transitivePeerDependencies:
-      - chokidar
     dev: true
 
   /ansi-colors@4.1.3:
