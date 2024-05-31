@@ -14,23 +14,25 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [AppComponent, SudokuBoxComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [ReactiveFormsModule,
+      declarations: [AppComponent, SudokuBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        ReactiveFormsModule,
         MatSnackBarModule,
         MatCardModule,
         MatDialogModule,
         MatToolbarModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient],
-            },
-            defaultLanguage: 'en',
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).compileComponents();
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient],
+          },
+          defaultLanguage: 'en',
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).compileComponents();
   });
 
   it('should create the app', () => {

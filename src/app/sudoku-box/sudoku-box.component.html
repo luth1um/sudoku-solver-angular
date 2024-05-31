@@ -33,7 +33,7 @@
     [disabled]="!sudokuForm.valid || disableButtonsForSolving"
     id="button-solve"
   >
-    <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-solve" | translate }}
+    <mat-icon>emoji_objects</mat-icon> {{ 'sudoku-box.button-solve' | translate }}
   </button>
   &nbsp;
   <button
@@ -43,7 +43,7 @@
     [disabled]="disableButtonsForSolving"
     id="button-reset"
   >
-    <mat-icon>cancel</mat-icon> {{ "sudoku-box.button-reset" | translate }}
+    <mat-icon>cancel</mat-icon> {{ 'sudoku-box.button-reset' | translate }}
   </button>
 </div>
 <br />
@@ -55,11 +55,11 @@
     [disabled]="!sudokuForm.valid || disableButtonsForSolving"
     id="button-next-number"
   >
-    <mat-icon>emoji_objects</mat-icon> {{ "sudoku-box.button-next-number" | translate }}
+    <mat-icon>emoji_objects</mat-icon> {{ 'sudoku-box.button-next-number' | translate }}
   </button>
 </div>
 <br *ngIf="sudokuUnsolvable" />
 <mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px" id="card-sudoku-unsolvable">
   <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
-  <mat-card-content>⚠️⚠️⚠️ {{ "sudoku-box.unsolvable-content" | translate }} ⚠️⚠️⚠️</mat-card-content>
+  <mat-card-content>⚠️⚠️⚠️ {{ 'sudoku-box.unsolvable-content' | translate }} ⚠️⚠️⚠️</mat-card-content>
 </mat-card>

@@ -16,22 +16,24 @@ describe('SudokuBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [SudokuBoxComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [ReactiveFormsModule,
+      declarations: [SudokuBoxComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        ReactiveFormsModule,
         MatSnackBarModule,
         MatIconModule,
         MatDialogModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient],
-            },
-            defaultLanguage: 'en',
-        })],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
-}).compileComponents();
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient],
+          },
+          defaultLanguage: 'en',
+        }),
+      ],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SudokuBoxComponent);
     component = fixture.componentInstance;

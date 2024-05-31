@@ -1,9 +1,9 @@
-$warn: rgb(238,43,42);
+$warn: rgb(238, 43, 42);
 
-.ng-invalid:not(table,tr,form) {
+.ng-invalid:not(table, tr, form) {
   background-color: $warn;
   color: white;
-  }
+}
 .sudoku-input {
   text-align: center;
   border: 0;
@@ -29,6 +29,6 @@ $warn: rgb(238,43,42);
 .right-border-between-cells {
   border-right: 1px solid black;
 }
-.error-card-title{
-  color:$warn;
+.error-card-title {
+  color: $warn;
 }
