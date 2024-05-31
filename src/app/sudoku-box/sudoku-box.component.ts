@@ -82,7 +82,7 @@ export class SudokuBoxComponent implements OnInit {
    * This is needed to ensure that EVERY excluding field is marked as invalid (and not just the field that was changed last).
    */
   private onFormChange(): void {
-    this.formChangeSubscription = this.sudokuForm.statusChanges.subscribe((_) => {
+    this.formChangeSubscription = this.sudokuForm.statusChanges.subscribe(() => {
       // only do something if there are invalid values
       if (!this.sudokuForm.invalid) {
         this.snackBar.dismiss(); // dismiss error message if form is valid
@@ -260,7 +260,7 @@ export class SudokuBoxComponent implements OnInit {
    * @returns an array with the given length having all entries set to 0.
    */
   getZeroedArrayOfLength(length: number): number[] {
-    let array: number[] = [];
+    const array: number[] = [];
     for (let i = 0; i < length; i++) {
       array.push(0);
     }
