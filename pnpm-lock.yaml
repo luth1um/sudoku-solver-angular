@@ -45,8 +45,8 @@ dependencies:
     specifier: 8.0.0
     version: 8.0.0(@angular/common@18.0.1)(@angular/core@18.0.1)(@ngx-translate/core@15.0.0)(rxjs@7.8.1)
   fast-sudoku-solver:
-    specifier: 1.1.12
-    version: 1.1.12
+    specifier: 1.1.13
+    version: 1.1.13
   rxjs:
     specifier: 7.8.1
     version: 7.8.1
@@ -6082,8 +6082,8 @@ packages:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
 
-  /fast-sudoku-solver@1.1.12:
-    resolution: {integrity: sha512-UiCCT/LHAnxSlxNYO4d9bBBEWbRMfCzL7u9DvkNhXNsq3AkJdHcRHCLdSqAmCCqyPByckxs36HRLIFLtK6uaDA==}
+  /fast-sudoku-solver@1.1.13:
+    resolution: {integrity: sha512-59Z1edBh7SO4EtwWFPBissFLmifk6mXmqsPkrb4XESExEnDWb9djMZLEh507yCiMFNqA3/ILVrDLTepRslOCxA==}
     dev: false
 
   /fastq@1.17.1:
