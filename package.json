@@ -16,7 +16,8 @@
     "format": "prettier --write \"./**/*.{css,scss,html,js,mjs,json,md,ts}\"",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -52,12 +53,14 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.1.3",
     "gh-pages": "6.1.1",
+    "husky": "9.0.11",
     "jasmine-core": "5.1.2",
     "karma": "6.4.3",
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
+    "lint-staged": "15.2.5",
     "prettier": "3.2.5",
     "rimraf": "5.0.7",
     "typescript": "5.4.5",
@@ -69,5 +72,12 @@
     "vite": "5.0.12",
     "ip": "2.0.1",
     "webpack-dev-middleware": "6.1.2"
+  },
+  "lint-staged": {
+    "*.{html,js,mjs,ts}": [
+      "prettier --write",
+      "eslint --fix --max-warnings 0"
+    ],
+    "*.{css,scss,json,md}": "prettier --write"
   }
 }
