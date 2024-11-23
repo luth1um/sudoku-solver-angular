@@ -8,7 +8,7 @@
     "prebuild": "pnpm clean",
     "build": "ng build",
     "predeployghpages": "pnpm build",
-    "deployghpages": "gh-pages -d dist/sudoku-solver-angular",
+    "deployghpages": "gh-pages -d dist/sudoku-solver-angular/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test-once": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
