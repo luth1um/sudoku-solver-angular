@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   selector: 'solve-reset-dialog',
   templateUrl: './reset-dialog.component.html',
   styleUrls: ['./reset-dialog.component.scss'],
+  standalone: false,
 })
 export class ResetDialogComponent {
   constructor(private dialogRef: MatDialogRef<ResetDialogComponent>) {}

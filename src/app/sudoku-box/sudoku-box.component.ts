@@ -13,6 +13,7 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
   selector: 'solve-sudoku-box',
   templateUrl: './sudoku-box.component.html',
   styleUrls: ['./sudoku-box.component.scss'],
+  standalone: false,
 })
 export class SudokuBoxComponent implements OnInit {
   sudokuForm = this.fb.group({
