@@ -25,6 +25,8 @@ export class SudokuBoxComponent implements OnInit {
   sudokuUnsolvable: boolean = false;
   snackBarInvalidInputOpen: boolean = false;
 
+  protected readonly Array = Array;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -261,10 +263,6 @@ export class SudokuBoxComponent implements OnInit {
    * @returns an array with the given length having all entries set to 0.
    */
   getZeroedArrayOfLength(length: number): number[] {
-    const array: number[] = [];
-    for (let i = 0; i < length; i++) {
-      array.push(0);
-    }
-    return array;
+    return Array.from({ length }, () => 0);
   }
 }

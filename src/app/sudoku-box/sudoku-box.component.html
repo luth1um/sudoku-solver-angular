@@ -1,26 +1,28 @@
 <!-- Sudoku puzzle -->
 <form [formGroup]="sudokuForm" id="sudoku-form">
   <table formGroupName="rows" class="sudoku-table">
-    <tr
-      *ngFor="let row of $any(sudokuForm.get('rows')).controls; let rowNum = index"
-      [formArrayName]="rowNum"
-      [class.bottom-border-between-boxes]="rowNum === 2 || rowNum === 5"
-      [class.bottom-border-between-cells]="!(rowNum === 2 || rowNum === 5 || rowNum === 8)"
-    >
-      <td
-        *ngFor="let entry of getZeroedArrayOfLength(9); let columnNum = index"
-        [class.right-border-between-cells]="!(columnNum === 2 || columnNum === 5 || columnNum === 8)"
-        [class.right-border-between-boxes]="columnNum === 2 || columnNum === 5"
+    @for (row of Array.from($any(sudokuForm.get('rows')).controls); track rowNum; let rowNum = $index) {
+      <tr
+        [formArrayName]="rowNum"
+        [class.bottom-border-between-boxes]="rowNum === 2 || rowNum === 5"
+        [class.bottom-border-between-cells]="!(rowNum === 2 || rowNum === 5 || rowNum === 8)"
       >
-        <input
-          class="sudoku-input"
-          type="text"
-          size="1"
-          formControlName="column{{ columnNum }}"
-          id="sudoku-input-{{ rowNum }}{{ columnNum }}"
-        />
-      </td>
-    </tr>
+        @for (entry of getZeroedArrayOfLength(9); track columnNum; let columnNum = $index) {
+          <td
+            [class.right-border-between-cells]="!(columnNum === 2 || columnNum === 5 || columnNum === 8)"
+            [class.right-border-between-boxes]="columnNum === 2 || columnNum === 5"
+          >
+            <input
+              class="sudoku-input"
+              type="text"
+              size="1"
+              formControlName="column{{ columnNum }}"
+              id="sudoku-input-{{ rowNum }}{{ columnNum }}"
+            />
+          </td>
+        }
+      </tr>
+    }
   </table>
 </form>
 <!-- buttons and messages -->
@@ -58,8 +60,10 @@
     <mat-icon>emoji_objects</mat-icon> {{ 'sudoku-box.button-next-number' | translate }}
   </button>
 </div>
-<br *ngIf="sudokuUnsolvable" />
-<mat-card *ngIf="sudokuUnsolvable" style="max-width: 400px" id="card-sudoku-unsolvable">
-  <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
-  <mat-card-content>⚠️⚠️⚠️ {{ 'sudoku-box.unsolvable-content' | translate }} ⚠️⚠️⚠️</mat-card-content>
-</mat-card>
+@if (sudokuUnsolvable) {
+  <br />
+  <mat-card style="max-width: 400px" id="card-sudoku-unsolvable">
+    <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
+    <mat-card-content>⚠️⚠️⚠️ {{ 'sudoku-box.unsolvable-content' | translate }} ⚠️⚠️⚠️</mat-card-content>
+  </mat-card>
+}
