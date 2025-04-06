@@ -127,19 +127,16 @@ export class SudokuBoxComponent implements OnInit {
     this.sudokuForm.disable(); // disable form to prevent changes
     this.disableButtonsForSolving = true;
 
-    console.log('Solving Sudoku puzzle...');
     const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
     const result: [boolean, number[][]] = solveSudoku(sudoku);
     const isSolved: boolean = result[0];
     const solvedSudoku: number[][] = result[1];
 
     if (isSolved) {
-      console.log('Sudoku puzzle solved!');
       this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
       this.updateSudokuFormEntries(solvedSudoku);
       this.onFormChange(); // listen again to changes when update of form complete
     } else {
-      console.log('Sudoku not solvable');
       this.sudokuUnsolvable = true;
     }
     this.sudokuForm.enable();
@@ -158,7 +155,6 @@ export class SudokuBoxComponent implements OnInit {
     this.sudokuForm.disable(); // disable form to prevent changes
     this.disableButtonsForSolving = true;
 
-    console.log('Calculating next number...');
     const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
     const result: NextNumberResult = nextNumber(sudoku);
     const isSolvable: boolean = result.isSolvable;
@@ -167,7 +163,6 @@ export class SudokuBoxComponent implements OnInit {
     const entry: number = result.entry;
 
     if (isSolvable) {
-      console.log('Next number calculated!');
       if (entry !== -1) {
         // -1 means that puzzle is already completely solved (hence, nothing to do)
         this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
@@ -176,7 +171,6 @@ export class SudokuBoxComponent implements OnInit {
         this.onFormChange(); // listen again to changes when update of form complete
       }
     } else {
-      console.log('Sudoku not solvable');
       this.sudokuUnsolvable = true;
     }
     this.sudokuForm.enable();
@@ -220,20 +214,6 @@ export class SudokuBoxComponent implements OnInit {
   private resetSudoku(): void {
     this.sudokuForm.reset();
     this.sudokuUnsolvable = false;
-  }
-
-  /**
-   * Opens a snack bar with the given message and action (i.e., annotation for close button).
-   * @param message message to display
-   * @param action annotation for close button
-   */
-  openSnackBar(message: string, action: string) {
-    this.snackBar
-      .open(message, action)
-      .afterDismissed()
-      .subscribe(() => {
-        this.snackBarInvalidInputOpen = false;
-      });
   }
 
   /**
