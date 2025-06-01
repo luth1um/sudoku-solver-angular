@@ -48,14 +48,14 @@
     "@angular/cli": "19.2.13",
     "@angular/compiler-cli": "19.2.13",
     "@cypress/schematic": "3.0.0",
-    "@eslint/js": "9.27.0",
+    "@eslint/js": "9.28.0",
     "@types/jasmine": "5.1.8",
-    "angular-eslint": "19.4.0",
+    "angular-eslint": "19.6.0",
     "copyfiles": "2.4.1",
     "cypress": "14.4.0",
-    "eslint": "9.27.0",
+    "eslint": "9.28.0",
     "eslint-config-prettier": "10.1.5",
-    "eslint-plugin-prettier": "5.4.0",
+    "eslint-plugin-prettier": "5.4.1",
     "gh-pages": "6.3.0",
     "husky": "9.1.7",
     "jasmine-core": "5.7.1",
@@ -64,11 +64,11 @@
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
-    "lint-staged": "16.0.0",
+    "lint-staged": "16.1.0",
     "prettier": "3.5.3",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.32.1"
+    "typescript-eslint": "8.33.0"
   },
   "lint-staged": {
     "*.{html,js,mjs,ts}": [
