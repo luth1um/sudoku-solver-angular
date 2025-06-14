@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,10 +8,14 @@ import { TranslateService } from '@ngx-translate/core';
   standalone: false,
 })
 export class AppComponent implements OnInit {
+  private translate = inject(TranslateService);
+
   title = 'sudoku-solver';
   explanationLinkWiki?: string;
 
-  constructor(private translate: TranslateService) {
+  constructor() {
+    const translate = this.translate;
+
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -8,5 +8,5 @@ import { MatDialogRef } from '@angular/material/dialog';
   standalone: false,
 })
 export class ResetDialogComponent {
-  constructor(private dialogRef: MatDialogRef<ResetDialogComponent>) {}
+  private dialogRef = inject<MatDialogRef<ResetDialogComponent>>(MatDialogRef);
 }

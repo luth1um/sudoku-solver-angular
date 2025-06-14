@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,6 +16,11 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
   standalone: false,
 })
 export class SudokuBoxComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+  private translate = inject(TranslateService);
+
   sudokuForm = this.fb.group({
     rows: this.fb.array([]),
   });
@@ -26,13 +31,6 @@ export class SudokuBoxComponent implements OnInit {
   snackBarInvalidInputOpen: boolean = false;
 
   protected readonly Array = Array;
-
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    private translate: TranslateService
-  ) {}
 
   ngOnInit(): void {
     for (let i = 0; i < 9; i++) {
