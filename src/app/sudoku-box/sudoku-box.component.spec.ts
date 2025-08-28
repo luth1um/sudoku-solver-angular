@@ -4,11 +4,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { SudokuBoxComponent } from './sudoku-box.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '../app.module';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 describe('SudokuBoxComponent', () => {
   let component: SudokuBoxComponent;
@@ -24,12 +24,8 @@ describe('SudokuBoxComponent', () => {
         MatIconModule,
         MatDialogModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient],
-          },
-          defaultLanguage: 'en',
+          loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
+          fallbackLang: 'en',
         }),
       ],
       providers: [provideHttpClient(withInterceptorsFromDi())],

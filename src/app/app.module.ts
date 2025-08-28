@@ -12,14 +12,9 @@ import { AppComponent } from './app.component';
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResetDialogComponent } from './reset-dialog/reset-dialog.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { TranslateModule } from '@ngx-translate/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [AppComponent, SudokuBoxComponent, ResetDialogComponent],
@@ -35,12 +30,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     MatDialogModule,
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-      defaultLanguage: 'en',
+      loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
+      fallbackLang: 'en',
     }),
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],

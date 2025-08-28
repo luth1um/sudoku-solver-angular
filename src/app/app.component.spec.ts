@@ -4,12 +4,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from './app.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -23,12 +23,8 @@ describe('AppComponent', () => {
         MatDialogModule,
         MatToolbarModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient],
-          },
-          defaultLanguage: 'en',
+          loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
+          fallbackLang: 'en',
         }),
       ],
       providers: [provideHttpClient(withInterceptorsFromDi())],
