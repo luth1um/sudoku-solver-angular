@@ -10,7 +10,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResetDialogComponent } from './reset-dialog/reset-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -22,7 +21,6 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
