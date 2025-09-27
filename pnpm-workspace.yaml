@@ -1,6 +1,0 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - cypress
-  - esbuild
-  - lmdb
-  - msgpackr-extract
