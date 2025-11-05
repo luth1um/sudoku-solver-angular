@@ -1,12 +1,10 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   eslint.configs.recommended,
-  eslintPluginPrettierRecommended,
   eslintConfigPrettier,
   {
     files: ['**/*.ts'],

@@ -54,7 +54,6 @@
     "cypress": "15.5.0",
     "eslint": "9.38.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.4",
     "gh-pages": "6.3.0",
     "husky": "9.1.7",
     "jasmine-core": "5.12.0",
