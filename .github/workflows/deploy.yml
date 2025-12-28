@@ -6,12 +6,11 @@ on:
     types: [completed]
     branches: [release]
 
-permissions:
-  contents: write
-
 jobs:
   on-success:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout 🛎️
@@ -33,8 +32,14 @@ jobs:
       - name: Install 🕝
         run: pnpm install --frozen-lockfile
 
+      - name: Clean-up 🧹
+        run: pnpm clean
+
       - name: Build 🔧
         run: pnpm build
+
+      - name: Copy licenses 📝
+        run: pnpm cp3rdpartylicenses
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
