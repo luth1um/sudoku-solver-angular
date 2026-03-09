@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -39,7 +39,6 @@ export class SudokuBoxComponent implements OnInit {
   sudokuForm = this.fb.group({
     rows: this.fb.array([]),
   });
-  entryPattern: string = '[1-9]';
   disableButtonsForSolving = signal<boolean>(false);
   sudokuUnsolvable = signal<boolean>(false);
   snackBarInvalidInputOpen = signal<boolean>(false);
@@ -51,39 +50,39 @@ export class SudokuBoxComponent implements OnInit {
       (this.sudokuForm.get('rows') as FormArray<FormGroup>).push(
         this.fb.group({
           column0: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 0)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 0)],
             updateOn: 'change',
           }),
           column1: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 1)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 1)],
             updateOn: 'change',
           }),
           column2: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 2)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 2)],
             updateOn: 'change',
           }),
           column3: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 3)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 3)],
             updateOn: 'change',
           }),
           column4: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 4)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 4)],
             updateOn: 'change',
           }),
           column5: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 5)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 5)],
             updateOn: 'change',
           }),
           column6: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 6)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 6)],
             updateOn: 'change',
           }),
           column7: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 7)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 7)],
             updateOn: 'change',
           }),
           column8: this.fb.control<string>('', {
-            validators: [Validators.pattern(this.entryPattern), excludingEntriesValidator(this.sudokuForm, i, 8)],
+            validators: [excludingEntriesValidator(this.sudokuForm, i, 8)],
             updateOn: 'change',
           }),
         })
@@ -237,6 +236,53 @@ export class SudokuBoxComponent implements OnInit {
           this.snackBarInvalidInputOpen.set(false);
         });
     });
+  }
+
+  /**
+   * Handles input events on individual Sudoku cells. Restricts input to single digits 1-9 and
+   * automatically advances focus to the next cell after a valid digit is entered.
+   * @param event the native input event
+   * @param row the row index (0-8) of the cell
+   * @param column the column index (0-8) of the cell
+   */
+  onCellInput(event: Event, row: number, column: number): void {
+    const input = event.target as HTMLInputElement;
+    const raw = input.value;
+
+    // Keep only the last character if something was typed (digits 1-9 only)
+    const filtered = raw.replace(/[^1-9]/g, '');
+    const validValue = filtered.length > 0 ? filtered[filtered.length - 1] : '';
+
+    // Update the DOM value in case we stripped characters
+    input.value = validValue;
+
+    // Sync the form control with the filtered value
+    const formRow = (this.sudokuForm.get('rows') as FormArray<FormGroup>).at(row) as FormGroup;
+    formRow.get('column' + column)!.setValue(validValue, { emitEvent: true });
+
+    // Only advance focus when a digit was entered (not when clearing)
+    if (validValue !== '') {
+      this.focusNextCell(row, column);
+    }
+  }
+
+  /**
+   * Moves focus to the next cell in reading order. After the last cell in a row, focus moves to the
+   * first cell of the next row. After the very last cell (row 8, column 8), focus moves to the
+   * Solve button (the next tabbable element after the grid).
+   * @param row the current row index (0-8)
+   * @param column the current column index (0-8)
+   */
+  private focusNextCell(row: number, column: number): void {
+    let nextId: string;
+    if (column < 8) {
+      nextId = `sudoku-input-${row}${column + 1}`;
+    } else if (row < 8) {
+      nextId = `sudoku-input-${row + 1}0`;
+    } else {
+      nextId = 'button-solve';
+    }
+    (document.getElementById(nextId) as HTMLElement | null)?.focus();
   }
 
   /**
