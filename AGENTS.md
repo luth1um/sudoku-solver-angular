@@ -31,7 +31,7 @@ pnpm clean         # remove dist/
 pnpm lint          # eslint --fix --max-warnings 0 (must pass with 0 warnings)
 pnpm format        # prettier --write on all .ts/.html/.scss/.json/.md files
 
-pnpm test          # unit tests: Jest, single run
+pnpm test          # unit tests: Vitest via ng test, single run
 pnpm e2e           # Cypress E2E via ng e2e (requires running dev server)
 pnpm cypress:open  # Cypress interactive
 pnpm cypress:run   # Cypress headless
@@ -40,7 +40,7 @@ pnpm cypress:run   # Cypress headless
 ### Running a Single Unit Test File
 
 ```sh
-pnpm jest src/app/sudoku-box/sudoku-box.component.spec.ts
+pnpm ng test --watch=false --testNamePattern "should create"
 ```
 
 ### Running a Single Cypress Spec
@@ -255,15 +255,15 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 
 ## Testing
 
-### Unit Tests (Jest)
+### Unit Tests (Vitest)
 
-- Test runner: **Jest** with `jest-preset-angular`. Config lives in `jest.config.ts`; setup in `setup-jest.ts`.
+- Test runner: **Vitest** via the official `@angular/build:unit-test` builder. Config lives in `angular.json` (architect > test); advanced Vitest options live in `vitest-base.config.ts`.
 - Test files are co-located with source files: `*.spec.ts` in the same folder.
 - Component tests use `TestBed.configureTestingModule` with `imports: [TheStandaloneComponent, ...]` and required `providers`. No `declarations` or `CUSTOM_ELEMENTS_SCHEMA` needed for standalone components.
 - Pure function tests do not need `TestBed` — call functions directly.
 - Follow **Arrange → Act → Assert** and use inline comments for each section.
 - `describe` strings name the thing under test; `it` strings begin with `"should "`.
-- Use Jest matchers (`toBe`, `toEqual`, `toBeTruthy`, etc.). Do **not** use Jasmine-only matchers like `toBeTrue()`.
+- Use Vitest matchers (`toBe`, `toEqual`, `toBeTruthy`, etc.). Do **not** use Jasmine-only matchers like `toBeTrue()`.
 
 ```ts
 describe('SudokuBoxComponent', () => {

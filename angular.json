@@ -74,9 +74,10 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "configPath": "jest.config.ts"
+            "tsConfig": "tsconfig.spec.json",
+            "runnerConfig": "vitest-base.config.ts"
           }
         },
         "lint": {
