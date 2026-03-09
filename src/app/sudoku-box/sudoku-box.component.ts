@@ -1,10 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { nextNumber, NextNumberResult, solveSudoku } from 'fast-sudoku-solver';
-import { Subscription } from 'rxjs';
+import { combineLatest, firstValueFrom } from 'rxjs';
+
 import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
 import { excludingEntriesValidator } from '../validation/excluding-entries';
 import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
@@ -12,23 +18,31 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 @Component({
   selector: 'solve-sudoku-box',
   templateUrl: './sudoku-box.component.html',
-  styleUrls: ['./sudoku-box.component.scss'],
-  standalone: false,
+  styleUrl: './sudoku-box.component.scss',
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatCardModule,
+    MatDialogModule,
+    TranslateModule,
+  ],
 })
 export class SudokuBoxComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private translate = inject(TranslateService);
+  private destroyRef = inject(DestroyRef);
 
   sudokuForm = this.fb.group({
     rows: this.fb.array([]),
   });
   entryPattern: string = '[1-9]';
-  formChangeSubscription?: Subscription;
-  disableButtonsForSolving: boolean = false;
-  sudokuUnsolvable: boolean = false;
-  snackBarInvalidInputOpen: boolean = false;
+  disableButtonsForSolving = signal<boolean>(false);
+  sudokuUnsolvable = signal<boolean>(false);
+  snackBarInvalidInputOpen = signal<boolean>(false);
 
   protected readonly Array = Array;
 
@@ -83,7 +97,7 @@ export class SudokuBoxComponent implements OnInit {
    * This is needed to ensure that EVERY excluding field is marked as invalid (and not just the field that was changed last).
    */
   private onFormChange(): void {
-    this.formChangeSubscription = this.sudokuForm.statusChanges.subscribe(() => {
+    this.sudokuForm.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       // only do something if there are invalid values
       if (!this.sudokuForm.invalid) {
         this.snackBar.dismiss(); // dismiss error message if form is valid
@@ -91,20 +105,17 @@ export class SudokuBoxComponent implements OnInit {
       }
 
       // if form is invalid: trigger notification if not already open
-      if (!this.snackBarInvalidInputOpen) {
-        this.snackBarInvalidInputOpen = true;
+      if (!this.snackBarInvalidInputOpen()) {
+        this.snackBarInvalidInputOpen.set(true);
         this.openSnackBarTemp('sudoku-box.form-invalid-snack-bar-message', 'sudoku-box.form-invalid-snack-bar-action');
       }
 
       // if form is invalid: revalidate ALL fields such that EVERY excluding field is marked as invalid (and not just the field that was changed last)
-      // NOTE: unsubscribe (and later resubscribe) to avoid infinite loop
-      this.formChangeSubscription?.unsubscribe();
       for (const formRow of (this.sudokuForm.get('rows') as FormArray<FormGroup>).controls) {
         for (let i = 0; i < 9; i++) {
-          formRow.get('column' + i)!.updateValueAndValidity();
+          formRow.get('column' + i)!.updateValueAndValidity({ emitEvent: false });
         }
       }
-      this.onFormChange(); // resubscribe to changes
 
       // dismiss error message if form is valid
       if (!this.sudokuForm.invalid) {
@@ -121,9 +132,9 @@ export class SudokuBoxComponent implements OnInit {
       return;
     }
 
-    this.sudokuUnsolvable = false; // reset "unsolvability" whenever solving (re-)starts
+    this.sudokuUnsolvable.set(false); // reset "unsolvability" whenever solving (re-)starts
     this.sudokuForm.disable(); // disable form to prevent changes
-    this.disableButtonsForSolving = true;
+    this.disableButtonsForSolving.set(true);
 
     const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
     const result: [boolean, number[][]] = solveSudoku(sudoku);
@@ -131,14 +142,12 @@ export class SudokuBoxComponent implements OnInit {
     const solvedSudoku: number[][] = result[1];
 
     if (isSolved) {
-      this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
       this.updateSudokuFormEntries(solvedSudoku);
-      this.onFormChange(); // listen again to changes when update of form complete
     } else {
-      this.sudokuUnsolvable = true;
+      this.sudokuUnsolvable.set(true);
     }
     this.sudokuForm.enable();
-    this.disableButtonsForSolving = false;
+    this.disableButtonsForSolving.set(false);
   }
 
   /**
@@ -149,9 +158,9 @@ export class SudokuBoxComponent implements OnInit {
       return;
     }
 
-    this.sudokuUnsolvable = false; // reset "unsolvability" whenever solving (re-)starts
+    this.sudokuUnsolvable.set(false); // reset "unsolvability" whenever solving (re-)starts
     this.sudokuForm.disable(); // disable form to prevent changes
-    this.disableButtonsForSolving = true;
+    this.disableButtonsForSolving.set(true);
 
     const sudoku: number[][] = convertSudokuFormToNumberArray(this.sudokuForm);
     const result: NextNumberResult = nextNumber(sudoku);
@@ -163,16 +172,14 @@ export class SudokuBoxComponent implements OnInit {
     if (isSolvable) {
       if (entry !== -1) {
         // -1 means that puzzle is already completely solved (hence, nothing to do)
-        this.formChangeSubscription?.unsubscribe(); // don't listen to changes while updating the form with the solved Sudoku
         sudoku[row][column] = entry;
         this.updateSudokuFormEntries(sudoku);
-        this.onFormChange(); // listen again to changes when update of form complete
       }
     } else {
-      this.sudokuUnsolvable = true;
+      this.sudokuUnsolvable.set(true);
     }
     this.sudokuForm.enable();
-    this.disableButtonsForSolving = false;
+    this.disableButtonsForSolving.set(false);
   }
 
   /**
@@ -211,7 +218,7 @@ export class SudokuBoxComponent implements OnInit {
    */
   private resetSudoku(): void {
     this.sudokuForm.reset();
-    this.sudokuUnsolvable = false;
+    this.sudokuUnsolvable.set(false);
   }
 
   /**
@@ -220,23 +227,21 @@ export class SudokuBoxComponent implements OnInit {
    * @param translationKeyAction i18n key for the action (i.e., the close button)
    */
   openSnackBarTemp(translationKeyMessage: string, translationKeyAction: string): void {
-    // first: get translated texts for message and action
-    this.translate.get(translationKeyMessage).subscribe((message: string) => {
-      this.translate.get(translationKeyAction).subscribe((action: string) => {
-        // then: open snack bar
-        this.snackBar
-          .open(message, action)
-          .afterDismissed()
-          .subscribe(() => {
-            this.snackBarInvalidInputOpen = false;
-          });
-      });
+    firstValueFrom(
+      combineLatest([this.translate.get(translationKeyMessage), this.translate.get(translationKeyAction)])
+    ).then(([message, action]: [string, string]) => {
+      this.snackBar
+        .open(message, action)
+        .afterDismissed()
+        .subscribe(() => {
+          this.snackBarInvalidInputOpen.set(false);
+        });
     });
   }
 
   /**
    * Returns an array with the given length having all entries set to 0. The sole purpose of this function is to
-   * circumvent the fact that Angular templates do not provide a direct way to use ngFor loops with an index.
+   * circumvent the fact that Angular templates do not provide a direct way to use @for loops with an index.
    * @param length length of the array
    * @returns an array with the given length having all entries set to 0.
    */

@@ -6,7 +6,7 @@ This file provides guidance for agentic coding assistants operating in this repo
 
 ## Project Overview
 
-An Angular application that provides a browser-based Sudoku solver. It uses Angular Material for UI, `@ngx-translate` for i18n (English + German), `fast-sudoku-solver` for the solving logic, and Cypress for E2E tests. The app is a single NgModule with no routing.
+An Angular application that provides a browser-based Sudoku solver. It uses Angular Material for UI, `@ngx-translate` for i18n (English + German), `fast-sudoku-solver` for the solving logic, and Cypress for E2E tests. The app uses standalone components with `bootstrapApplication()` and no NgModule or routing.
 
 ---
 
@@ -31,7 +31,7 @@ pnpm clean         # remove dist/
 pnpm lint          # eslint --fix --max-warnings 0 (must pass with 0 warnings)
 pnpm format        # prettier --write on all .ts/.html/.scss/.json/.md files
 
-pnpm test          # unit tests: Karma + Jasmine, headless Chrome, single run
+pnpm test          # unit tests: Jest, single run
 pnpm e2e           # Cypress E2E via ng e2e (requires running dev server)
 pnpm cypress:open  # Cypress interactive
 pnpm cypress:run   # Cypress headless
@@ -39,10 +39,8 @@ pnpm cypress:run   # Cypress headless
 
 ### Running a Single Unit Test File
 
-Karma does not have a native "run one file" flag. To run a single spec in isolation, temporarily modify `src/test.ts` to filter by spec path using `require.context`, or use the `--include` flag in Angular CLI (Angular 17+):
-
 ```sh
-pnpm ng test --include="src/app/sudoku-box/sudoku-box.component.spec.ts" --no-watch --no-progress --browsers=ChromeHeadlessCI
+pnpm jest src/app/sudoku-box/sudoku-box.component.spec.ts
 ```
 
 ### Running a Single Cypress Spec
@@ -96,7 +94,6 @@ All strict TypeScript flags are enabled — `"strict": true` plus:
 - `noPropertyAccessFromIndexSignature: true`
 - `forceConsistentCasingInFileNames: true`
 - Target: **ES2022**, module: **ES2020**, moduleResolution: **bundler**
-- `useDefineForClassFields: false` (required for Angular decorators)
 
 Angular template compiler: `strictInjectionParameters`, `strictInputAccessModifiers`, and `strictTemplates` are all `true`.
 
@@ -106,17 +103,16 @@ Do not add `// @ts-ignore` or `// @ts-expect-error` unless absolutely necessary.
 
 ## Naming Conventions
 
-| Artifact               | Convention                                         | Example                                     |
-| ---------------------- | -------------------------------------------------- | ------------------------------------------- |
-| Components             | `PascalCase` + `Component` suffix                  | `SudokuBoxComponent`                        |
-| Modules                | `PascalCase` + `Module` suffix                     | `AppModule`                                 |
-| Component selectors    | `solve-` prefix, kebab-case                        | `solve-sudoku-box`                          |
-| Directive selectors    | `solve` prefix, camelCase attribute                | `solveFoo`                                  |
-| Files                  | kebab-case, `.type.ts` suffix                      | `sudoku-box.component.ts`                   |
-| Methods / functions    | `camelCase` verbs                                  | `solve()`, `resetSudoku()`                  |
-| Properties / variables | `camelCase`, explicitly typed                      | `disableButtonsForSolving: boolean = false` |
-| Private class members  | `private` access modifier (not `#` private fields) | `private fb = inject(FormBuilder)`          |
-| i18n keys              | dot-separated by feature                           | `sudoku-box.button-solve`                   |
+| Artifact               | Convention                                         | Example                                    |
+| ---------------------- | -------------------------------------------------- | ------------------------------------------ |
+| Components             | `PascalCase` + `Component` suffix                  | `SudokuBoxComponent`                       |
+| Component selectors    | `solve-` prefix, kebab-case                        | `solve-sudoku-box`                         |
+| Directive selectors    | `solve` prefix, camelCase attribute                | `solveFoo`                                 |
+| Files                  | kebab-case, `.type.ts` suffix                      | `sudoku-box.component.ts`                  |
+| Methods / functions    | `camelCase` verbs                                  | `solve()`, `resetSudoku()`                 |
+| Properties / variables | `camelCase`, explicitly typed                      | `disableButtonsForSolving = signal(false)` |
+| Private class members  | `private` access modifier (not `#` private fields) | `private fb = inject(FormBuilder)`         |
+| i18n keys              | dot-separated by feature                           | `sudoku-box.button-solve`                  |
 
 Shared/utility code lives in `src/app/_shared/` (underscore prefix sorts it first). Validators live in `src/app/validation/` as plain exported functions (no class).
 
@@ -124,9 +120,21 @@ Shared/utility code lives in `src/app/_shared/` (underscore prefix sorts it firs
 
 ## Angular Patterns
 
-### NgModule Architecture (not standalone)
+### Standalone Components + `bootstrapApplication()`
 
-Components explicitly declare `standalone: false`. All components are declared in `AppModule`. Do not convert to standalone components — `@angular-eslint/prefer-standalone` is turned off intentionally.
+All components are standalone. There is no `AppModule` or `NgModule`. The app bootstraps via `bootstrapApplication()` in `main.ts`:
+
+```ts
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    provideAnimationsAsync(),
+    importProvidersFrom(TranslateModule.forRoot({ ... })),
+  ],
+}).catch((err) => console.error(err));
+```
+
+Each component declares its own `imports` array with the Angular Material modules, pipes, and child components it needs directly. Do **not** add `standalone: false` — standalone is the default and the ESLint rule `@angular-eslint/prefer-standalone` is set to `'error'`.
 
 ### Dependency Injection — `inject()` function
 
@@ -146,7 +154,29 @@ constructor(private fb: FormBuilder) {}
 Use `@for` / `@if` / `@else` block syntax. Do **not** use `*ngFor` or `*ngIf` structural directives:
 
 ```html
-@for (row of rows; track rowIndex; let rowIndex = $index) { ... } @if (sudokuUnsolvable) { ... }
+@for (row of rows; track rowIndex; let rowIndex = $index) { ... } @if (sudokuUnsolvable()) { ... }
+```
+
+### Signals
+
+Use Angular Signals for component state instead of plain mutable properties:
+
+```ts
+protected disableButtonsForSolving = signal(false);
+protected sudokuUnsolvable = signal(false);
+```
+
+Read signals in templates with call syntax: `disableButtonsForSolving()`. Update with `.set()` or `.update()`. Do **not** use plain mutable properties for reactive UI state.
+
+### Subscription Cleanup — `DestroyRef` + `takeUntilDestroyed`
+
+Use `DestroyRef` with `takeUntilDestroyed` for RxJS subscriptions that need automatic cleanup on component destroy. Do **not** manually call `subscription?.unsubscribe()` or use `ngOnDestroy`:
+
+```ts
+private destroyRef = inject(DestroyRef);
+
+// In constructor or field initializer:
+this.someObservable$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(...);
 ```
 
 ### Reactive Forms
@@ -159,6 +189,22 @@ Use `FormBuilder`, `FormGroup`, `FormArray`, and typed `FormControl<string>`. Va
 
 Custom validators are factory functions returning `ValidatorFn` — plain exported functions, not classes.
 
+When updating form values programmatically to avoid triggering `statusChanges`, pass `{ emitEvent: false }`:
+
+```ts
+control.setValue(value, { emitEvent: false });
+```
+
+### `styleUrl` (singular)
+
+Use `styleUrl` (singular string) not `styleUrls` (array) in `@Component` metadata:
+
+```ts
+@Component({
+  styleUrl: './my.component.scss',
+})
+```
+
 ### Exposing Global Constructors to Templates
 
 Use a `protected readonly` property to expose globals like `Array` inside component templates:
@@ -166,10 +212,6 @@ Use a `protected readonly` property to expose globals like `Array` inside compon
 ```ts
 protected readonly Array = Array;
 ```
-
-### No Signals
-
-The project does not use Angular Signals (`signal()`, `computed()`, `effect()`). State is managed via plain class properties and RxJS `Subscription`s. Do not introduce Signals without discussing the architectural change first.
 
 ### i18n
 
@@ -187,12 +229,13 @@ Group imports in this order, separated by a blank line:
 4. **Local imports** (relative paths: `./`, `../`)
 
 ```ts
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 import { ResetDialogComponent } from '../reset-dialog/reset-dialog.component';
 import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
@@ -204,22 +247,23 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 
 - There is no `try/catch` in the application. Do not add `try/catch` for application logic.
 - Form validation errors are surfaced through Angular reactive form validators and `MatSnackBar` notifications driven by `statusChanges`.
-- Solver failures (unsolvable puzzle) are indicated by a boolean property (`sudokuUnsolvable: boolean`) toggled in the component, rendered conditionally in the template with `@if`.
+- Solver failures (unsolvable puzzle) are indicated by a signal (`sudokuUnsolvable = signal(false)`) toggled in the component, rendered conditionally in the template with `@if`.
 - Bootstrap errors are caught with `.catch((err) => console.error(err))` in `main.ts` only.
-- Subscription cleanup: use `subscription?.unsubscribe()` (optional chaining) before re-subscribing. The project does not use `takeUntil` or `DestroyRef` — maintain consistency.
 - Use non-null assertion (`!`) only when you are certain a value cannot be null/undefined (e.g., accessing a known form control: `formRow.get('column' + j)!.setValue(entry)`).
 
 ---
 
 ## Testing
 
-### Unit Tests (Karma + Jasmine)
+### Unit Tests (Jest)
 
+- Test runner: **Jest** with `jest-preset-angular`. Config lives in `jest.config.ts`; setup in `setup-jest.ts`.
 - Test files are co-located with source files: `*.spec.ts` in the same folder.
-- Component tests use `TestBed.configureTestingModule` with `declarations`, `schemas: [CUSTOM_ELEMENTS_SCHEMA]` (to suppress unknown child element errors), and required `imports`/`providers`.
-- Pure function tests do not need `TestBed` — construct dependencies directly.
+- Component tests use `TestBed.configureTestingModule` with `imports: [TheStandaloneComponent, ...]` and required `providers`. No `declarations` or `CUSTOM_ELEMENTS_SCHEMA` needed for standalone components.
+- Pure function tests do not need `TestBed` — call functions directly.
 - Follow **Arrange → Act → Assert** and use inline comments for each section.
 - `describe` strings name the thing under test; `it` strings begin with `"should "`.
+- Use Jest matchers (`toBe`, `toEqual`, `toBeTruthy`, etc.). Do **not** use Jasmine-only matchers like `toBeTrue()`.
 
 ```ts
 describe('SudokuBoxComponent', () => {
@@ -228,9 +272,11 @@ describe('SudokuBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SudokuBoxComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [...],
+      imports: [
+        SudokuBoxComponent,
+        TranslateModule.forRoot({ ... }),
+      ],
+      providers: [provideHttpClient()],
     }).compileComponents();
     fixture = TestBed.createComponent(SudokuBoxComponent);
     component = fixture.componentInstance;

@@ -53,12 +53,12 @@ describe('The validation function for excluding Sudoku form entries', () => {
     (sudokuForm.get('rows') as FormArray<FormGroup>).get('8')!.patchValue({ column8: '4' });
 
     const isValid = sudokuForm.valid;
-    expect(isValid).toBeTrue();
+    expect(isValid).toBe(true);
   });
 
   it('should mark the empty form as valid', () => {
     const isValid = sudokuForm.valid;
-    expect(isValid).toBeTrue();
+    expect(isValid).toBe(true);
   });
 
   it('should mark a form with entries excluding each other in the same row as invalid', () => {
@@ -67,7 +67,7 @@ describe('The validation function for excluding Sudoku form entries', () => {
     (sudokuForm.get('rows') as FormArray<FormGroup>).get('3')!.patchValue({ column7: '5' });
 
     const isInvalid = sudokuForm.invalid;
-    expect(isInvalid).toBeTrue();
+    expect(isInvalid).toBe(true);
   });
 
   it('should mark a form with entries excluding each other in the same column as invalid', () => {
@@ -76,7 +76,7 @@ describe('The validation function for excluding Sudoku form entries', () => {
     (sudokuForm.get('rows') as FormArray<FormGroup>).get('3')!.patchValue({ column0: '5' });
 
     const isInvalid = sudokuForm.invalid;
-    expect(isInvalid).toBeTrue();
+    expect(isInvalid).toBe(true);
   });
 
   it('should mark a form with entries excluding each other in the same box as invalid', () => {
@@ -85,6 +85,6 @@ describe('The validation function for excluding Sudoku form entries', () => {
     (sudokuForm.get('rows') as FormArray<FormGroup>).get('2')!.patchValue({ column1: '5' });
 
     const isInvalid = sudokuForm.invalid;
-    expect(isInvalid).toBeTrue();
+    expect(isInvalid).toBe(true);
   });
 });

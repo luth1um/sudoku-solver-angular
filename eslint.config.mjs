@@ -35,7 +35,6 @@ export default defineConfig(
           style: 'kebab-case',
         },
       ],
-      '@angular-eslint/prefer-standalone': 'off',
     },
   },
   {
@@ -44,6 +43,6 @@ export default defineConfig(
   },
   {
     // needs to be in its own object to act as global ignore
-    ignores: ['dist', '.angular', 'karma.conf.js', '.prettierrc.js'],
+    ignores: ['dist', '.angular', '.prettierrc.js', 'jest.config.ts', 'setup-jest.ts'],
   }
 );

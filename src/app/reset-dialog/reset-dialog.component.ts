@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'solve-reset-dialog',
   templateUrl: './reset-dialog.component.html',
-  styleUrls: ['./reset-dialog.component.scss'],
-  standalone: false,
+  styleUrl: './reset-dialog.component.scss',
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, TranslateModule],
 })
-export class ResetDialogComponent {
-  private dialogRef = inject<MatDialogRef<ResetDialogComponent>>(MatDialogRef);
-}
+export class ResetDialogComponent {}

@@ -32,7 +32,7 @@
     mat-flat-button
     color="primary"
     (click)="solve()"
-    [disabled]="!sudokuForm.valid || disableButtonsForSolving"
+    [disabled]="!sudokuForm.valid || disableButtonsForSolving()"
     id="button-solve"
   >
     <mat-icon>emoji_objects</mat-icon> {{ 'sudoku-box.button-solve' | translate }}
@@ -42,7 +42,7 @@
     mat-flat-button
     color="accent"
     (click)="openResetDialog()"
-    [disabled]="disableButtonsForSolving"
+    [disabled]="disableButtonsForSolving()"
     id="button-reset"
   >
     <mat-icon>cancel</mat-icon> {{ 'sudoku-box.button-reset' | translate }}
@@ -54,13 +54,13 @@
     mat-flat-button
     color="primary"
     (click)="nextNumber()"
-    [disabled]="!sudokuForm.valid || disableButtonsForSolving"
+    [disabled]="!sudokuForm.valid || disableButtonsForSolving()"
     id="button-next-number"
   >
     <mat-icon>emoji_objects</mat-icon> {{ 'sudoku-box.button-next-number' | translate }}
   </button>
 </div>
-@if (sudokuUnsolvable) {
+@if (sudokuUnsolvable()) {
   <br />
   <mat-card style="max-width: 400px" id="card-sudoku-unsolvable">
     <mat-card-title class="error-card-title"><mat-icon>error_outline</mat-icon></mat-card-title>
