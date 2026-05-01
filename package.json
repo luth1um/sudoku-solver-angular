@@ -66,14 +66,5 @@
       "eslint --fix --max-warnings 0 --no-warn-ignored"
     ],
     "*.{css,scss,json,md}": "prettier --write"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "cypress",
-      "esbuild",
-      "lmdb",
-      "msgpackr-extract"
-    ]
   }
 }
