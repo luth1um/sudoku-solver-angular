@@ -1,5 +1,3 @@
-![Build](https://github.com/luth1um/sudoku-solver-angular/actions/workflows/build_and_test.yml/badge.svg?branch=release) [![Deployment](https://github.com/luth1um/sudoku-solver-angular/actions/workflows/deploy.yml/badge.svg)](https://github.com/luth1um/sudoku-solver-angular/actions/workflows/deploy.yml)
-
 # 🤔 Sudoku Solver
 
 This project is a simple and fast Sudoku solver created with Angular and TypeScript. All calculations are done directly in the frontend, you don't need any backend to run this app. In case you want to try out the result, just visit [this website](https://luth1um.github.io/sudoku-solver-angular/). In case you are only interested in the TypeScript solver itself, you should visit [this project](https://github.com/luth1um/sudoku-solver-typescript).
