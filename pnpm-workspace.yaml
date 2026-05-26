@@ -1,3 +1,4 @@
+minimumReleaseAge: 10080 # 7 days in minutes
 allowBuilds:
   '@parcel/watcher': true
   cypress: true
