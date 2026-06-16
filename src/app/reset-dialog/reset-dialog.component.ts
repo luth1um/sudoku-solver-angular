@@ -2,14 +2,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'solve-reset-dialog',
   templateUrl: './reset-dialog.component.html',
   styleUrl: './reset-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, TranslateModule],
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, TranslatePipe],
 })
 export class ResetDialogComponent {}

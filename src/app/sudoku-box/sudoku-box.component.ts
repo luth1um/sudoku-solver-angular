@@ -7,7 +7,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { nextNumber, NextNumberResult, solveSudoku } from 'fast-sudoku-solver';
 import { combineLatest, firstValueFrom } from 'rxjs';
 
@@ -27,7 +27,7 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
     MatSnackBarModule,
     MatCardModule,
     MatDialogModule,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SudokuBoxComponent implements OnInit {

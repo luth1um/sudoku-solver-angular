@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
 
@@ -12,7 +12,7 @@ import { SudokuBoxComponent } from './sudoku-box/sudoku-box.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [MatToolbarModule, MatButtonModule, MatCardModule, TranslateModule, SudokuBoxComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatCardModule, TranslatePipe, SudokuBoxComponent],
 })
 export class AppComponent {
   private translate = inject(TranslateService);
