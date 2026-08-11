@@ -14,4 +14,5 @@ export default defineConfig({
     specPattern: '**/*.cy.ts',
   },
   allowCypressEnv: false,
+  defaultBrowser: 'chrome',
 });
