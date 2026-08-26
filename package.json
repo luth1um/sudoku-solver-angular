@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "clean": "rimraf dist",
-    "format": "prettier --write \"./**/*.{css,scss,html,js,mjs,json,md,ts}\"",
+    "format": "prettier --write .",
     "lint": "eslint . --fix --max-warnings 0",
     "build": "ng build",
     "test": "ng test --watch=false",
@@ -63,6 +63,6 @@
       "prettier --write",
       "eslint --fix --max-warnings 0 --no-warn-ignored"
     ],
-    "*.{css,scss,json,md}": "prettier --write"
+    "*.{css,scss,json,md,yaml,yml}": "prettier --write"
   }
 }
