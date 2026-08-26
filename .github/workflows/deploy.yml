@@ -12,6 +12,7 @@ env:
   HUSKY: 0
   PNPM_VERSION: '11'
   NODE_VERSION: '26'
+  CYPRESS_INSTALL_BINARY: 0
 
 jobs:
   on-success:
