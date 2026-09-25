@@ -257,7 +257,7 @@ import { convertSudokuFormToNumberArray } from '../_shared/solver-utils';
 
 ### Unit Tests (Vitest)
 
-- Test runner: **Vitest** via the official `@angular/build:unit-test` builder. Config lives in `angular.json` (architect > test); advanced Vitest options live in `vitest-base.config.ts`.
+- Test runner: **Vitest** via the official `@angular/build:unit-test` builder. Config lives in `angular.json` (architect > test); advanced Vitest options live in `vitest-base.config.mjs`.
 - Test files are co-located with source files: `*.spec.ts` in the same folder.
 - Component tests use `TestBed.configureTestingModule` with `imports: [TheStandaloneComponent, ...]` and required `providers`. No `declarations` or `CUSTOM_ELEMENTS_SCHEMA` needed for standalone components.
 - Pure function tests do not need `TestBed` — call functions directly.
