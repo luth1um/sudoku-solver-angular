@@ -4,5 +4,7 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeStrict: true
 update:
   githubActions: true
